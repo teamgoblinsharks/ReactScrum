@@ -1,8 +1,8 @@
-import * as types from "../constants/actionTypes";
+import * as types from '../constants/actionTypes';
 
 const initialState = {
   boards: [],
-  taskArray: []
+  taskArray: [],
 };
 
 const taskReducer = (state = initialState, action) => {
@@ -10,29 +10,26 @@ const taskReducer = (state = initialState, action) => {
   let taskArray;
 
   switch (action.type) {
-
     case types.ADD_TASK:
-
       taskArray = action.taskArray;
       console.log(taskArray);
 
       return {
         ...state,
-        taskArray
-      }
+        taskArray,
+      };
 
     case types.ADD_BOARD:
-
       boards = action.boards;
 
       return {
         ...state,
-        boards
-      }
+        boards,
+      };
 
     default:
       return initialState;
   }
-}
+};
 
 export default taskReducer;

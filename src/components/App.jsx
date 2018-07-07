@@ -10,11 +10,11 @@ class App extends Component {
         <div>
           <Header />
           <Switch>
-            <Route exact path='/' component={Board} />
+            <Route exact path="/" component={Board} />
           </Switch>
         </div>
       </Router>
-    )
+    );
   }
 }
 

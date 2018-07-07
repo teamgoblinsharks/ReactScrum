@@ -7,14 +7,14 @@ class App extends Component {
     render() {
     return (
     <Router>
-          <div>
-          <Header />
-          <Switch>
-          <Route exact path='/' component={Board} />
-          </Switch>
-          </div>
+            <div>
+            <Header />
+            <Switch>
+            <Route exact path='/' component={Board} />
+            </Switch>
+            </div>
     </Router>
-    )
+        )
     }
 }
 

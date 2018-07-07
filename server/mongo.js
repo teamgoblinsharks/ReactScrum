@@ -4,27 +4,25 @@ const uri = 'mongodb://scrum:scrum1@ds229701.mlab.com:29701/scrum';
 
 const UserSchema = new mongoose.Schema({
   name: { type: String, required: true },
+  isLoggedIn: { type: Boolean, default: true },
+  boards: Object,
+  oauthInfo: Object,
 });
 
-const userModel = mongoose.model('User', UserSchema);
-
-module.exports = function (request, response, next) {
+const User = mongoose.model('User', UserSchema);
+const fetchMongoData = function(request, response, next) {
   mongoose
     .connect(uri)
     .then(() => {
       console.log('connected to mongoose');
       if (request.params.username) {
         const userQuery = { name: request.params.username };
-        userModel
-          .find(userQuery, (err, res) => {
-            response.locals.data = res;
-            next();
-          })
-          .catch(e => console.log('mongo find error: ', e));
+        User.find(userQuery, (err, res) => {
+          response.locals.data = res;
+          next();
+        }).catch(e => console.log('mongo find error: ', e));
       } else {
-        console.log('fired');
-
-        userModel.find({}, (err, res) => {
+        User.find({}, (err, res) => {
           if (err) response.locals.error = err;
           response.locals.data = res;
           next();
@@ -42,7 +40,7 @@ module.exports = function (request, response, next) {
   // if (request.path === '/add_user') {
   //   if (request.query.name && request.query.name.trim()) {
   //     const user = { name: request.query.name.trim() };
-  //     userModel.create(user, (err, res) => {
+  //     User.create(user, (err, res) => {
   //       if (err) {
   //         response.locals.error = { message: err, statusCode: 400 };
   //       } else {
@@ -59,3 +57,5 @@ module.exports = function (request, response, next) {
   //   next();
   // }
 };
+
+module.exports = { User, fetchMongoData };

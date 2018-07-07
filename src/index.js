@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import store from './store';
 import { getUsers } from './actions/actions';
 
-
 const root = document.getElementById('root');
 
 store.dispatch((() => getUsers()));

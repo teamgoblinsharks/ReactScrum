@@ -15,9 +15,9 @@ export default class AppRouter extends Component {
       <Router history={history}>
         <div>
           <Switch>
-            <PublicRoute exact path="/" isAuthenticated={true} component={LoginPage} />
+            <PublicRoute exact path="/" isAuthenticated={false} component={LoginPage} />
             <Route exact path="/" component={Board} />
-            <PrivateRoute exact path="/dashboard" isAuthenticated={true} component={Board} />
+            <PrivateRoute exact path="/dashboard" isAuthenticated={false} component={Board} />
             <Route component={NotFoundPage} />
           </Switch>
         </div>
@@ -25,6 +25,3 @@ export default class AppRouter extends Component {
     );
   }
 }
-
-// <PublicRoute path="/" component={LoginPage} exact={true} />
-// <PrivateRoute exact path="/home" compononent={LoginPage} />

@@ -1,9 +1,37 @@
 const express = require('express');
 const path = require('path');
 
+const fetchMongoData = require('./mongo.js');
+
 const app = express();
 const port = process.env.PORT || 8080;
 const publicPath = path.join(__dirname, '..', 'public', 'dist');
+
+// const fetchData = require('./db.js');
+
+// app.get('/:username', fetchData, (req, res) => {
+//   const userExists = res.locals.data.rows.some(row => row.username === req.params.username);
+//   console.log('​userExists', userExists);
+// });
+
+// app.get('/add_user', fetchMongoData, (req, res) => {
+//   if (res.locals.error) {
+//     res.json(res.locals.error);
+//     res.status(res.locals.error.statusCode).json(res.locals.error.message);
+//   } else {
+//     res.json(res.locals.data);
+//   }
+// });
+
+app.get('/login/:username', fetchMongoData, (req, res) => {
+  console.log(res.locals);
+  
+  if (res.locals.error) {
+    res.status(res.locals.error.statusCode).send(res.locals.error.message);
+  } else {
+    res.json(res.locals.data);
+  }
+});
 
 app.use(express.static(publicPath));
 

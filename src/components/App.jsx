@@ -6,15 +6,15 @@ import Board from './Board.jsx';
 class App extends Component {
     render() {
     return (
-    <Router>
-            <div>
+        <Router>
+        <div>
             <Header />
             <Switch>
-            <Route exact path='/' component={Board} />
+            <Route exact path="/" component={Board} />
             </Switch>
-            </div>
-    </Router>
-        )
+        </div>
+        </Router>
+    );
     }
 }
 

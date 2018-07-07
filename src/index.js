@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
+import App from './components/App.jsx';
 
 const root = document.getElementById('root');
 
-render(<div>jsx tagera</div>, root);
+render(<App />, root);

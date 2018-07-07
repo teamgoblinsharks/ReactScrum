@@ -1,11 +1,14 @@
 const express = require('express');
 const path = require('path');
+const cors = require('cors');
 
 const fetchMongoData = require('./mongo.js');
 
 const app = express();
 const port = process.env.PORT || 3000;
 const publicPath = path.join(__dirname, '..', 'public', 'dist');
+
+app.use(cors());
 
 app.get('/getusers', fetchMongoData, (req, res) => {
   res.json(res.locals.data);

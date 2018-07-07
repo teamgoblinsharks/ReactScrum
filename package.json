@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack --mode development; nodemon server/server.js",
+    "nodemon": "webpack --mode development; nodemon server/server.js",
+    "node": "webpack --mode development; node server/server.js",
     "dev": "webpack-dev-server --mode development"
   },
   "author": "",
@@ -18,6 +19,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
+    "cors": "^2.8.4",
     "css-loader": "^1.0.0",
     "history": "^4.7.2",
     "html-webpack-plugin": "^3.2.0",

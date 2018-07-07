@@ -3,8 +3,8 @@ import axios from "../../node_modules/axios";
 
 
 export function addTask(task) {
-   console.log(task);
    return async function (dispatch, getState) {
+      console.log(task);
       const state = getState();
       const taskArray = state.users.boards.tasks;
 
@@ -34,7 +34,6 @@ export function addBoard(name) {
 
       boards.push(newBoard);
 
-
       return dispatch({
          type: types.ADD_BOARD,
          boards
@@ -44,10 +43,10 @@ export function addBoard(name) {
 }
 
 export function getUsers() {
-
    return async function (dispatch, getState) {
-      const usersFromDb = await axios('');
 
+      const usersFromDb = await axios('');
+      console.log('get users');
       return dispatch({
          type: types.GET_USERS,
          users

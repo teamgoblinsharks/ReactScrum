@@ -8,7 +8,7 @@ import { getUsers } from './actions/actions';
 
 const root = document.getElementById('root');
 
-store.dispatch(getUsers);
+store.dispatch((() => getUsers()));
 
 render(
   <Provider store={store}>

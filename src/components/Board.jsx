@@ -5,18 +5,20 @@ import HeaderBody from './components/HeaderBody.jsx';
 
 
 class Board extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
   }
-  
-  render(){
-    return(
-      <div>
-        {AddTask}
-      </div>
 
-      <div>{AddStory}</div>
-      <div>{Row}</div>
+  render() {
+    return (
+      <div>
+        <div>
+          {AddTask}
+        </div>
+
+        <div>{AddStory}</div>
+        <div>{Row}</div>
+      </div>
     )
   }
 }

@@ -7,13 +7,13 @@ class AddTask extends React.Component {
 
     }
   };
-  render(){
+  render() {
     return (
       <div>
-      <button>Add Task</button>
+        <button>Add Task</button>
       </div>
     )
   }
-} 
+}
 
 export default AddTask; 

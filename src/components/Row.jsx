@@ -5,7 +5,7 @@ import Body from './Body.jsx';
 const Row = () => {
   return (
     <div>
-      <RowHeader />
+      <RowHeader title={"tasks"} />
       <Body />
     </div>
   )

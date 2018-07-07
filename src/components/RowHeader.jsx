@@ -3,11 +3,13 @@ import Body from './Body.jsx';
 
 
 class RowHeader extends Component {
-    render() {
-        <div>
-            <Body/>
-        </div>
-    }
+  render() {
+    return (
+      <div>
+        <Body />
+      </div>
+    )
+  }
 }
 
 export default RowHeader;

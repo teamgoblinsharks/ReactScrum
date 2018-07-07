@@ -4,10 +4,9 @@ import createHistory from 'history/createBrowserHistory';
 
 import PublicRoute from './PublicRoute.jsx';
 import PrivateRoute from './PrivateRoute.jsx';
-import LoginPage from './LoginPage.jsx';
-import NotFoundPage from './NotFoundPage.jsx';
-
-import PrivatePage from './PrivatePage.jsx';
+import LoginPage from '../components/LoginPage.jsx';
+import NotFoundPage from '../components/NotFoundPage.jsx';
+import Board from '../components/Board.jsx';
 
 const history = createHistory();
 export default class AppRouter extends Component {
@@ -16,8 +15,9 @@ export default class AppRouter extends Component {
       <Router history={history}>
         <div>
           <Switch>
-            <PublicRoute exact path="/" isAuthenticated={false} component={LoginPage} />
-            <PrivateRoute exact path="/secret" isAuthenticated={false} component={PrivatePage} />
+            <PublicRoute exact path="/" isAuthenticated={true} component={LoginPage} />
+            <Route exact path="/" component={Board} />
+            <PrivateRoute exact path="/dashboard" isAuthenticated={true} component={Board} />
             <Route component={NotFoundPage} />
           </Switch>
         </div>

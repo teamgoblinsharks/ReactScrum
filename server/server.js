@@ -23,6 +23,8 @@ const publicPath = path.join(__dirname, '..', 'public', 'dist');
 //   }
 // });
 
+
+
 app.get('/login/:username', fetchMongoData, (req, res) => {
   console.log(res.locals);
   

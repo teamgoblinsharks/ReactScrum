@@ -3,11 +3,13 @@ import * as types from '../constants/actionTypes';
 const initialState = {
   boards: [],
   taskArray: [],
+  users: []
 };
 
 const taskReducer = (state = initialState, action) => {
   let boards;
   let taskArray;
+  let users;
 
   switch (action.type) {
     case types.ADD_TASK:
@@ -26,6 +28,13 @@ const taskReducer = (state = initialState, action) => {
         ...state,
         boards,
       };
+
+    case types.GET_USERS:
+      users = action.users
+
+      return {
+        users
+      }
 
     default:
       return initialState;

@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import Body from './Body.jsx';
 
 
-class RowHeader extends Component {
-  render() {
+const RowHeader = props => {
     return (
       <div>
+        <div>{props.title}</div>
         <Body />
       </div>
     )
-  }
 }
 
 export default RowHeader;

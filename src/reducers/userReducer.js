@@ -26,11 +26,27 @@ const taskReducer = (state = {}, action) => {
     case types.GET_USERS:
       users = action.users;
       return {
-        users,
-      };
+        users
+      }
+    
+    case types.IS_LOGGED_IN:
+      users = action.users
+      
+      return {
+        users
+      }
+    
+    case types.ADD_STORY:
+      users = action.users
+      
+      return {
+        users
+      }
+
     default:
       return state;
   }
+
 };
 
 export default taskReducer;

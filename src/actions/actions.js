@@ -39,6 +39,17 @@ export function addBoard(name) {
   };
 }
 
+export function addStory() {
+  return async function(dispatch, getState) {
+    const state = getState();
+
+    return dispatch({
+      type: types.ADD_STORY,
+      users,
+    });
+  };
+}
+
 export const getUsers = (dispatch, getState) => {
   axios.get('http://localhost:3000/getusers').then(res => {
     console.log(res.data[0]);
@@ -46,3 +57,21 @@ export const getUsers = (dispatch, getState) => {
     return dispatch({ type: types.GET_USERS, users: res.data });
   });
 };
+
+export function isLoggedIn(id) {
+  return async function(dispatch, getState) {
+    const state = getState();
+    const users = state.users;
+
+    for (var i = 0; i < users.length; i++) {
+      if (users[i]._id === id) {
+        users[i].isLoggedIn = true;
+      }
+    }
+
+    return dispatch({
+      type: types.IS_LOGGED_IN,
+      users,
+    });
+  };
+}

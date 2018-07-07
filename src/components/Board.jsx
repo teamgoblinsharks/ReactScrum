@@ -15,7 +15,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = store => {
   return {
-    boards: store.tasks.boards,
+    boards: store.users.boards,
 
   }
 }

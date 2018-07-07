@@ -15,7 +15,7 @@ const LoginPage = props => (
         onClick={() => {
           //probably in approuter or index.js
           // get users from databse with axios call
-          // thunk users to store
+          // thunk userxs to store
           // when a user clicks on login
           // is user is signing in with info:
           //search store for that user data,
@@ -23,7 +23,6 @@ const LoginPage = props => (
           //wait for the authentication response, if response succeeds, search store for related info, change status to logged in, push to dashboard
 
           axios.get('http://localhost:3000/login/brendan').then(res => {
-            if (res.length) 
             console.log(res);
           });
         }}

@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 
 // import { startLogin } from '../actions/auth';
+const gitUrl =
+  'https://github.com/login/oauth/authorize?client_id=8f7d91a63f56cb8593fd&redirect_uri=http://localhost:3000/git';
 
 const LoginPage = props => (
   <div className="box-layout">
@@ -27,8 +29,12 @@ const LoginPage = props => (
           });
         }}
       >
-        Login with GitHUb
+        Login
       </button>
+
+      <a href={gitUrl}>
+        <button>Login with GitHUb</button>
+      </a>
     </div>
   </div>
 );

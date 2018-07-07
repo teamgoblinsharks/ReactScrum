@@ -25,12 +25,9 @@ const taskReducer = (state = {}, action) => {
 
     case types.GET_USERS:
       users = action.users;
-      console.log('got here');
-
       return {
         users,
       };
-
     default:
       return state;
   }

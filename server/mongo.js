@@ -8,12 +8,11 @@ const UserSchema = new mongoose.Schema({
 
 const userModel = mongoose.model('User', UserSchema);
 
-module.exports = function(request, response, next) {
+module.exports = function (request, response, next) {
   mongoose
     .connect(uri)
     .then(() => {
       console.log('connected to mongoose');
-
       if (request.params.username) {
         const userQuery = { name: request.params.username };
         userModel

@@ -10,7 +10,8 @@ class AddTask extends React.Component {
   render() {
     return (
       <div>
-        <button>Add Task</button>
+        <input type="text" placeholder="task" id="taskInput" />
+        <button onClick={() => this.props.addTask(document.querySelector('#taskInput').value)}>Add Task</button>
       </div>
     )
   }

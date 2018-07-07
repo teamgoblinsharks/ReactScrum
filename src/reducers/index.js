@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
 // import all reducers here
-import taskReducer from './clothesReducer';
+import taskReducer from './taskReducer';
 
 // combine reducers
 const reducers = combineReducers({

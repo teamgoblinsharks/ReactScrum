@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 
 // import { startLogin } from '../actions/auth';
+const gitUrl =
+  'https://github.com/login/oauth/authorize?client_id=8f7d91a63f56cb8593fd&redirect_uri=http://localhost:3000/git';
 
 const LoginPage = props => (
   <div className="box-layout">
@@ -15,7 +17,7 @@ const LoginPage = props => (
         onClick={() => {
           //probably in approuter or index.js
           // get users from databse with axios call
-          // thunk users to store
+          // thunk userxs to store
           // when a user clicks on login
           // is user is signing in with info:
           //search store for that user data,
@@ -23,13 +25,16 @@ const LoginPage = props => (
           //wait for the authentication response, if response succeeds, search store for related info, change status to logged in, push to dashboard
 
           axios.get('http://localhost:3000/login/brendan').then(res => {
-            if (res.length) 
             console.log(res);
           });
         }}
       >
-        Login with GitHUb
+        Login
       </button>
+
+      <a href={gitUrl}>
+        <button>Login with GitHUb</button>
+      </a>
     </div>
   </div>
 );

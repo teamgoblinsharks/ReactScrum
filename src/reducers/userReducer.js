@@ -1,12 +1,6 @@
 import * as types from '../constants/actionTypes';
 
-const initialState = {
-  boards: [],
-  taskArray: [],
-  users: []
-};
-
-const taskReducer = (state = initialState, action) => {
+const taskReducer = (state = {}, action) => {
   let boards;
   let taskArray;
   let users;
@@ -30,15 +24,29 @@ const taskReducer = (state = initialState, action) => {
       };
 
     case types.GET_USERS:
+      users = action.users;
+      return {
+        users
+      }
+    
+    case types.IS_LOGGED_IN:
       users = action.users
-
+      
+      return {
+        users
+      }
+    
+    case types.ADD_STORY:
+      users = action.users
+      
       return {
         users
       }
 
     default:
-      return initialState;
+      return state;
   }
+
 };
 
 export default taskReducer;

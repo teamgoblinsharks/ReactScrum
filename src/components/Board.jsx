@@ -5,11 +5,13 @@ import AddBoard from './AddBoard.jsx';
 import Row from './Row.jsx';
 import * as actions from "../actions/actions";
 import { connect } from "react-redux";
+import '../styles/styles.scss';
 
 const mapDispatchToProps = dispatch => {
   return {
     addBoard: (name) => dispatch(actions.addBoard(name)),
     addTask: (task) => dispatch(actions.addTask(task)),
+    addStory: (story) => dispatch(actions.addStory(story)),
   }
 }
 
@@ -25,16 +27,14 @@ class Board extends Component {
     super(props)
   }
 
-
   render() {
-
     return (
-      <div>
+      <div className="board">
         <AddBoard addBoard={this.props.addBoard} />
         <div>
           <AddTask addTask={this.props.addTask} />
+          <AddStory addStory={this.props.addStory}/>
         </div>
-        <div><AddStory /></div>
         <div><Row /></div>
       </div>
     )

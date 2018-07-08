@@ -17,8 +17,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = store => {
   return {
-    boards: store.users.boards,
-
+    users: store.users
   }
 }
 
@@ -28,12 +27,14 @@ class Board extends Component {
   }
 
   render() {
+    console.log(this.props.users);
     return (
       <div className="board">
+        <h1 className="board-title">Board Name</h1>
         <AddBoard addBoard={this.props.addBoard} />
         <div>
           <AddTask addTask={this.props.addTask} />
-          <AddStory addStory={this.props.addStory}/>
+          <AddStory addStory={this.props.addStory} />
         </div>
         <div><Row /></div>
       </div>

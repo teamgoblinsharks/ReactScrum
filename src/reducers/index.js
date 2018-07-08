@@ -1,12 +1,17 @@
 import { combineReducers } from 'redux';
 
 // import all reducers here
-import userReducer from './userReducer';
+import usersReducer from './usersReducer.js';
+import boardsReducer from './boardsReducer.js';
+import tasksReducer from './tasksReducer.js';
+import storiesReducer from './storiesReducer.js';
 
 // combine reducers
 const reducers = combineReducers({
-   // if we had other reducers, they would go here
-   users: userReducer,
+  users: usersReducer,
+  boards: boardsReducer,
+  stories: storiesReducer,
+  tasks: tasksReducer,
 });
 
 // make the combined reducers available for import

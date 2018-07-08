@@ -3,42 +3,45 @@ import AddTask from './AddTask.jsx';
 import AddStory from './AddStory.jsx';
 import AddBoard from './AddBoard.jsx';
 import Row from './Row.jsx';
-import * as actions from "../actions/actions";
-import { connect } from "react-redux";
+import * as boardActions from '../actions/boards.js';
+import * as taskActions from '../actions/tasks.js';
+import * as storyActions from '../actions/stories.js';
+
+import { connect } from 'react-redux';
 import '../styles/styles.scss';
 
 const mapDispatchToProps = dispatch => {
   return {
-    addBoard: (name) => dispatch(actions.addBoard(name)),
-    addTask: (task) => dispatch(actions.addTask(task)),
-    addStory: (story) => dispatch(actions.addStory(story)),
-  }
-}
+    addBoard: name => dispatch(boardActions.addBoard(name)),
+    addTask: task => dispatch(taskActions.addTask(task)),
+    addStory: story => dispatch(storyActions.addStory(story)),
+  };
+};
 
 const mapStateToProps = store => {
   return {
-    users: store.users
-  }
-}
+    boards: store.boards,
+  };
+};
 
 class Board extends Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   render() {
-    console.log(this.props.users);
     return (
       <div className="board">
-        <h1 className="board-title">Board Name</h1>
-        <AddBoard addBoard={this.props.addBoard} />
+        <h1 className="board-title">Board Lame</h1>
         <div>
           <AddTask addTask={this.props.addTask} />
           <AddStory addStory={this.props.addStory} />
         </div>
-        <div><Row /></div>
+        <div>
+          <Row />
+        </div>
       </div>
-    )
+    );
   }
 }
 

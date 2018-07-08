@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import { Router, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch, Link } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 
-import PublicRoute from './PublicRoute.jsx';
-import PrivateRoute from './PrivateRoute.jsx';
-import LoginPage from '../components/LoginPage.jsx';
-import NotFoundPage from '../components/NotFoundPage.jsx';
-import Board from '../components/Board.jsx';
+// import PublicRoute from './PublicRoute.jsx';
+// import PrivateRoute from './PrivateRoute.jsx';
+// import LoginPage from '../components/LoginPage.jsx';
+// import NotFoundPage from '../components/NotFoundPage.jsx';
+// import Board from '../components/Board.jsx';
+import Dashboard from '../components/Dashboard.jsx';
+
 
 const history = createHistory();
 export default class AppRouter extends Component {
@@ -15,10 +17,7 @@ export default class AppRouter extends Component {
       <Router history={history}>
         <div>
           <Switch>
-            <PublicRoute exact path="/" isAuthenticated={true} component={LoginPage} />
-            <Route exact path="/" component={Board} />
-            <PrivateRoute exact path="/dashboard" isAuthenticated={true} component={Board} />
-            <Route component={NotFoundPage} />
+            <Route exact path="/" component={Dashboard} />
           </Switch>
         </div>
       </Router>

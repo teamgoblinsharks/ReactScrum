@@ -3,7 +3,7 @@ import axios from '../../node_modules/axios';
 
 export function addTask(task) {
   console.log(task);
-  return async function(dispatch, getState) {
+  return async function (dispatch, getState) {
     const state = getState();
     const taskArray = state.users.boards.tasks;
 
@@ -21,7 +21,7 @@ export function addTask(task) {
 }
 
 export function addBoard(name) {
-  return async function(dispatch, getState) {
+  return async function (dispatch, getState) {
     const state = getState();
     console.log(state);
     const boards = state.users.boards;
@@ -40,7 +40,7 @@ export function addBoard(name) {
 }
 
 export function addStory() {
-  return async function(dispatch, getState) {
+  return async function (dispatch, getState) {
     const state = getState();
 
     return dispatch({
@@ -59,7 +59,7 @@ export const getUsers = (dispatch, getState) => {
 };
 
 export function isLoggedIn(id) {
-  return async function(dispatch, getState) {
+  return async function (dispatch, getState) {
     const state = getState();
     const users = state.users;
 

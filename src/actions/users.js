@@ -1,15 +1,14 @@
 import axios from 'axios';
 import * as types from '../constants/actionTypes.js';
 
-export const getUsers = (dispatch, getState) => {
-  axios.get('http://localhost:3000/getusers').then(res => {
-    console.log(res.data[0]);
-    const { users } = getState();
-    console.log('users', users);
-
-    return dispatch({ type: types.GET_USERS, users: res.data });
-  });
-};
+export function getUsers() {
+  return async function(dispatch, getState) {
+    axios.get('http://localhost:3000/getusers').then(res => {
+      const { users } = getState();
+      return dispatch({ type: types.GET_USERS, users: res.data });
+    });
+  };
+}
 
 export function isLoggedIn(id) {
   return async function(dispatch, getState) {

@@ -2,7 +2,11 @@ import React from 'react';
 
 const Task = props => {
   return (
-    <div>
+    <div
+      style={{
+        border: '1px solid black',
+      }}
+    >
       <p>{props.name}</p>
     </div>
   );

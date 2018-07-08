@@ -21,8 +21,6 @@ class Board extends React.Component {
     };
   }
   componentDidMount() {
-    console.log(this.props);
-
     const [todo, inProgress, testing, done] = this.props.tasks.reduce(
       (acc, task) => {
         if (task.status === 'todo') acc[0].push(task);
@@ -43,18 +41,6 @@ class Board extends React.Component {
       this.setState({ value: '', todo });
     }
   }
-  // moveColumn(name, status) {
-  //   console.log('fired', name, status);
-  //   console.log(this.state);
-
-  //   // const fromColumn = this.state.filter(task => task.name !== name);
-  //   // console.log('​Board -> moveColumn -> fromColumn', fromColumn);
-  //   // const toColumnName = this.state.order[this.state.order.findIndex(status) + 1];
-  //   // console.log('​Board -> moveColumn -> toColumnName', toColumnName);
-  //   // const toColumn = this.state[toColumnName].concat({ name: name, status: toColumnName });
-  //   // console.log('​Board -> moveColumn -> toColumn', toColumn);
-  //   // this.setState({ status: fromColumn, toColumnName: toColumn });
-  // }
   handleChange(e) {
     const { value } = e.target;
     this.setState({ value });

@@ -1,5 +1,21 @@
 import React from 'react';
 import Row from './Row.jsx';
+import * as boardActions from '../src/actions/boards.js';
+import { connect } from 'react-redux';
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addBoard: (name, userId) => dispatch(boardActions.addBoard(name, userId)),
+    getBoards: (userId) => dispatch(boardActions.getBoards(userId))
+  };
+};
+
+const mapStateToProps = store => {
+  return {
+    boards: store.boards,
+  };
+};
+
 
 class Board extends React.Component {
   constructor(props) {
@@ -8,24 +24,26 @@ class Board extends React.Component {
     this.handleChange = this.handleChange.bind(this);
 
     this.state = {
-      order: ['todo', 'inProgress', 'testing', 'done'],
+      // order: ['todo', 'inProgress', 'testing', 'done'],
       value: '',
-      stories: [{ name: 'user will something' }],
-      todo: [],
-      inProgress: [{ name: 'im in progress', status: 'inProgress' }],
-      testing: [{ name: 'test that button', status: 'testing' }],
-      done: [{ name: 'woooooo!', status: 'done' }],
+      // stories: [{ name: 'user will something' }],
+      // todo: [],
+      // inProgress: [{ name: 'im in progress', status: 'inProgress' }],
+      // testing: [{ name: 'test that button', status: 'testing' }],
+      // done: [{ name: 'woooooo!', status: 'done' }],
     };
   }
+
   handleSubmit(e) {
     e.preventDefault();
-    if (this.state.value.trim()) {
-      const todo = this.state.todo
-        .slice()
-        .concat({ name: this.state.value.trim(), status: 'todo' });
-      this.setState({ value: '', todo });
-    }
+    // if (this.state.value.trim()) {
+    //   const todo = this.state.todo
+    //     .slice()
+    //     .concat({ name: this.state.value.trim(), status: 'todo' });
+    //   this.setState({ value: '', todo });
+    // }
   }
+
   moveColumn(name, status) {
     console.log('fired', name, status);
     console.log(this.state);
@@ -38,6 +56,7 @@ class Board extends React.Component {
     // console.log('​Board -> moveColumn -> toColumn', toColumn);
     // this.setState({ status: fromColumn, toColumnName: toColumn });
   }
+
   handleChange(e) {
     const { value } = e.target;
     this.setState({ value });
@@ -57,7 +76,7 @@ class Board extends React.Component {
             />
             <button onClick={this.handleSubmit}>Add New Task</button>
           </form>
-          <div>
+          <div className="board-rows">
             <Row columnHeader="stories" tasks={this.state.stories} />
             <Row columnHeader="todos" tasks={this.state.todo} />
             <Row columnHeader="inProgress" tasks={this.state.inProgress} />
@@ -70,4 +89,7 @@ class Board extends React.Component {
   }
 }
 
-export default Board;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Board);

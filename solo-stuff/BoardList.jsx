@@ -30,12 +30,12 @@ class BoardList extends React.Component {
       <BoardIcon
         history={this.props.history}
         userID={this.props.userID}
+        boardId={board._id}
         name={board.name}
         key={Math.random()}
       />
     ));
     console.log('Board List Props', this.props)
-
 
     return (
       <div>

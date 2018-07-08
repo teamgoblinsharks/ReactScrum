@@ -9,16 +9,21 @@ class Body extends Component {
     };
   }
   componentDidMount() {
-    this.setState({ tasks: this.props.tasks });
+    // this.setState({ tasks: this.props.tasks });
   }
   componentWillReceiveProps(nextProps) {
-    this.setState(() => ({ tasks: nextProps.tasks }));
+    // this.setState(() => ({ tasks: nextProps.tasks }));
   }
   render() {
-    const tasks = this.state.tasks.map(task => (
-      <Task name={task.name} key={Math.random()} columnHeader={this.props.columnHeader} />
-    ));
-    return <div>{tasks}</div>;
+    // const tasks = this.state.tasks.map(task => (
+    //   <Task name={task.name} key={Math.random()} columnHeader={this.props.columnHeader} />
+    // ));
+    return (
+      <div>
+        tasks
+        {/* {tasks} */}
+      </div>
+    );
   }
 }
 

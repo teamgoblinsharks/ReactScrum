@@ -52,7 +52,6 @@ export function addStory() {
 
 export const getUsers = (dispatch, getState) => {
   axios.get('http://localhost:3000/getusers').then(res => {
-    console.log(res.data[0]);
     const { users } = getState();
     return dispatch({ type: types.GET_USERS, users: res.data });
   });

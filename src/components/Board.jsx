@@ -30,6 +30,7 @@ class Board extends Component {
     console.log(this.props.users);
     return (
       <div className="board">
+        <h1 className="board-title">Board Name</h1>
         <AddBoard addBoard={this.props.addBoard} />
         <div>
           <AddTask addTask={this.props.addTask} />

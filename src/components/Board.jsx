@@ -41,6 +41,7 @@ class Board extends Component {
         <div>
           <Row />
         </div>
+        <div>{this.props.match.params.id}</div>
       </div>
     );
   }

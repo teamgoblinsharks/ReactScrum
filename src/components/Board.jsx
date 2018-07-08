@@ -32,6 +32,7 @@ class Board extends Component {
   render() {
     return (
       <div className="board">
+        <h1 className="board-title">Board Name</h1>
         <AddBoard addBoard={this.props.addBoard} />
         <div>
           <AddTask addTask={this.props.addTask} />

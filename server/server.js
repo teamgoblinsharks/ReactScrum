@@ -2,6 +2,11 @@ const express = require('express');
 const path = require('path');
 const cors = require('cors');
 const request = require('request');
+const bodyParser = require('body-parser');
+const taskController = require('./controllers/taskController');
+const boardController = require('./controllers/boardController');
+
+
 const { User, fetchMongoData } = require('./mongo.js');
 
 const app = express();
@@ -9,6 +14,9 @@ const port = process.env.PORT || 3000;
 const publicPath = path.join(__dirname, '..', 'public', 'dist');
 
 app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 
 app.get('/getusers', fetchMongoData, (req, res) => {
   res.json(res.locals.data);
@@ -18,12 +26,12 @@ const github = {
   clientID: '8f7d91a63f56cb8593fd',
   clientSecret: '77d2df9309e5220194b998253edf4183a983ab72',
   redirectURI: 'http://localhost:3000/git',
-  postCodeURL: function() {
+  postCodeURL: function () {
     return `https://github.com/login/oauth/access_token?client_id=${this.clientID}&client_secret=${
       this.clientSecret
-    }&code=`;
+      }&code=`;
   },
-  authGetUrl: function() {
+  authGetUrl: function () {
     return `https://api.github.com/user?`;
   },
 };
@@ -63,6 +71,21 @@ app.get('/git', (req, res, next) => {
   });
   next('route');
 });
+
+
+
+/// TASK ROUTES
+app.get('/tasks/id?:id', taskController.getTasks);
+app.post('/tasks', taskController.addTask);
+
+app.get('/alltasks', taskController.getAllTasks);
+
+//BOARD ROUTES
+app.get('/boards/id?:id', boardController.getBoards);
+app.post('/boards', boardController.addBoard);
+
+app.get('/allboards', boardController.getAllBoards);
+
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(publicPath, 'index.html'));

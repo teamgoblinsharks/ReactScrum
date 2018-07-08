@@ -4,4 +4,3 @@ export const GET_USERS = "GET_USERS";
 export const IS_LOGGED_IN = "IS_LOGGED_IN";
 export const ADD_STORY = "ADD_STORY";
 
-

@@ -6,6 +6,7 @@ export function addStory(story) {
     const state = getState();
     const newStory = {
       name: story,
+      done: false,
     };
     return dispatch({
       type: types.ADD_STORY,

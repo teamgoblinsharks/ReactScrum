@@ -9,14 +9,14 @@ const taskController = {
   },
 
   getTasks: (req, res) => {
-    Task.find({ id: req.query.id }, (err, tasks) => {
+    Task.find({ boardId: req.query.id }, (err, tasks) => {
       if (err) return console.error(err);
     }).then(result => res.json(result));
   },
 
   addTask: (req, res) => {
     Task.create({
-      id: req.body.id,
+      boardId: req.body.boardId,
       task: req.body.task
     }).then(result => res.json(result))
       .catch(err => console.error(err));

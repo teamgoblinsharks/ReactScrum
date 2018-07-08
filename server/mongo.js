@@ -9,6 +9,11 @@ const UserSchema = new mongoose.Schema({
   oauthInfo: Object,
 });
 
+const SimpleUserSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  password: { type: String, required: true },
+});
+const SimpleUser = mongoose.model('SimpleUser', SimpleUserSchema);
 const User = mongoose.model('User', UserSchema);
 const fetchMongoData = function(request, response, next) {
   mongoose
@@ -58,4 +63,4 @@ const fetchMongoData = function(request, response, next) {
   // }
 };
 
-module.exports = { User, fetchMongoData };
+module.exports = { SimpleUser, User, fetchMongoData };

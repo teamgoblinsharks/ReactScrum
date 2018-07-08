@@ -1,12 +1,13 @@
 import * as types from '../constants/actionTypes.js';
 
-export function addBoard(name) {
+export function addBoard(name, userId) {
   return async function (dispatch, getState) {
     const state = getState();
     const boards = state.boards.slice();
-      
+    console.log(name, typeof userId);
+
     const newBoard = {
-      id: 'abc',
+      userId,
       name,
     };
 
@@ -20,6 +21,7 @@ export function addBoard(name) {
     });
 
     const data = await response.json();
+    console.log('data', data);
 
     boards.push(data);
 

@@ -1,13 +1,13 @@
 import * as types from '../constants/actionTypes.js';
 
-export function addTask(task) {
-  console.log(task);
+export function addTask(name) {
+  console.log(name);
   return async function (dispatch, getState) {
     const state = getState();
     const tasks = state.tasks.slice();
     const newTask = {
-      task,
-      position: 'todo',
+      status: 'todo',
+      name,
     };
 
     tasks.push(newTask);

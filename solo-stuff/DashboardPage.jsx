@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 const mapDispatchToProps = dispatch => {
   return {
     addBoard: (name, userId) => dispatch(boardActions.addBoard(name, userId)),
+    getBoards: (userId) => dispatch(boardActions.getBoards(userId))
   };
 };
 
@@ -22,13 +23,19 @@ class DashboardPage extends React.Component {
     this.state = {};
   }
 
+  componentDidMount() {
+    if (this.props.boards.length === 0) {
+      this.props.getBoards(this.props.match.params.id);
+    }
+  }
+
 
   render() {
 
     return (
       <div>
         <h1>{this.props.match.params.id}</h1>
-        <BoardList userID={this.props.match.params.id} history={this.props.history} addBoard={this.props.addBoard} />
+        <BoardList userID={this.props.match.params.id} history={this.props.history} addBoard={this.props.addBoard} boards={this.props.boards} />
       </div>
     );
   }

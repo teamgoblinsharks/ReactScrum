@@ -26,15 +26,15 @@ class BoardList extends React.Component {
     this.setState({ value });
   }
   render() {
-    // const Boards = this.state.boards.map(board => (
-    //   <BoardIcon
-    //     history={this.props.history}
-    //     userID={this.props.userID}
-    //     name={board.name}
-    //     key={Math.random()}
-    //   />
-    // ));
-    // console.log('Board List Props', this.props)
+    const Boards = this.props.boards.map(board => (
+      <BoardIcon
+        history={this.props.history}
+        userID={this.props.userID}
+        name={board.name}
+        key={Math.random()}
+      />
+    ));
+    console.log('Board List Props', this.props)
 
 
     return (
@@ -52,7 +52,7 @@ class BoardList extends React.Component {
             this.props.addBoard(this.state.value, this.props.userID);
           }}>Add New Project</button>
         </form>
-        {/* {Boards} */}
+        {Boards}
       </div>
     );
   }

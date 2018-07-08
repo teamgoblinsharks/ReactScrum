@@ -4,7 +4,6 @@ export function addBoard(name, userId) {
   return async function (dispatch, getState) {
     const state = getState();
     const boards = state.boards.slice();
-    console.log(name, typeof userId);
 
     const newBoard = {
       userId,
@@ -30,4 +29,24 @@ export function addBoard(name, userId) {
       boards,
     });
   };
+}
+
+export function getBoards(userId) {
+  console.log(userId);
+
+  return async function (dispatch, getState) {
+    const state = getState();
+    const boards = state.boards.slice();
+
+    const response = await fetch(`http://localhost:3000/boards/id?id=${userId}`);
+    const data = await response.json();
+
+    data.forEach(board => boards.push(board));
+
+    console.log('get boards reducer', boards);
+    return dispatch({
+      type: types.GET_BOARDS,
+      boards
+    })
+  }
 }

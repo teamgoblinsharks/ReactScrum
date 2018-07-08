@@ -1,6 +1,8 @@
 import React from 'react';
-import BoardIcon from './BoardIcon.jsx';
+import { connect } from 'react-redux';
 
+import BoardIcon from './BoardIcon.jsx';
+import { addBoard } from '../src/actions/boards.js';
 class BoardList extends React.Component {
   constructor(props) {
     super(props);
@@ -12,10 +14,16 @@ class BoardList extends React.Component {
       boards: [],
     };
   }
+  componentDidMount() {
+    // NEED TO CHANGE THIS SO SPECIFIC TO LOGGED IN USER
+    this.setState({ boards: this.props.boards });
+  }
   handleSubmit(e) {
     e.preventDefault();
     if (this.state.value.trim()) {
-      const boards = this.state.boards.slice().concat({ name: this.state.value.trim() });
+      const board = { name: this.state.value.trim() };
+      const boards = this.state.boards.slice().concat(board);
+      this.props.addBoard(board);
       this.setState({ value: '', boards });
     }
   }
@@ -28,6 +36,7 @@ class BoardList extends React.Component {
       <BoardIcon
         history={this.props.history}
         userID={this.props.userID}
+        boardID={board._id}
         name={board.name}
         key={Math.random()}
       />
@@ -50,4 +59,10 @@ class BoardList extends React.Component {
   }
 }
 
-export default BoardList;
+const mapStateToProps = ({ boards }) => ({ boards });
+const mapDispatchToProps = dispatch => ({ addBoard: name => dispatch(addBoard(name)) });
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(BoardList);

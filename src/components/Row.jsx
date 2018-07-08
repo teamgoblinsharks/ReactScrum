@@ -5,10 +5,10 @@ import Body from './Body.jsx';
 const Row = () => {
   return (
     <div>
-      <RowHeader title={"tasks"} />
+      <RowHeader title={'tasks'} />
       <Body />
     </div>
-  )
-}
+  );
+};
 
 export default Row;

@@ -7,6 +7,7 @@ export function addTask(task) {
     const tasks = state.tasks;
     const newTask = {
       task,
+      position: 'todo',
     };
 
     tasks.push(newTask);

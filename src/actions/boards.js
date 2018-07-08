@@ -8,6 +8,8 @@ export function addBoard(name) {
 
     const newBoard = {
       name: name,
+      stories: {},
+      tasks: {},
     };
 
     boards.push(newBoard);

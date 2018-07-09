@@ -1,6 +1,9 @@
 import React from 'react';
 import Row from './Row.jsx';
+import { connect } from 'react-redux';
 
+import { addStory } from '../src/actions/stories.js';
+import { addTask } from '../src/actions/tasks.js';
 class Board extends React.Component {
   constructor(props) {
     super(props);
@@ -10,33 +13,33 @@ class Board extends React.Component {
     this.state = {
       order: ['todo', 'inProgress', 'testing', 'done'],
       value: '',
-      stories: [{ name: 'user will something' }],
+      stories: [],
       todo: [],
-      inProgress: [{ name: 'im in progress', status: 'inProgress' }],
-      testing: [{ name: 'test that button', status: 'testing' }],
-      done: [{ name: 'woooooo!', status: 'done' }],
+      inProgress: [],
+      testing: [],
+      done: [],
     };
+  }
+  componentDidMount() {
+    const [todo, inProgress, testing, done] = this.props.tasks.reduce(
+      (acc, task) => {
+        if (task.status === 'todo') acc[0].push(task);
+        if (task.status === 'inProgress') acc[1].push(task);
+        if (task.status === 'testing') acc[2].push(task);
+        if (task.status === 'done') acc[3].push(task);
+        return acc;
+      },
+      [[], [], [], []]
+    );
+    this.setState({ stories: this.props.stories, todo, inProgress, testing, done });
   }
   handleSubmit(e) {
     e.preventDefault();
     if (this.state.value.trim()) {
-      const todo = this.state.todo
-        .slice()
-        .concat({ name: this.state.value.trim(), status: 'todo' });
+      const newTodo = { name: this.state.value.trim(), status: 'todo' };
+      const todo = this.state.todo.slice().concat(newTodo);
       this.setState({ value: '', todo });
     }
-  }
-  moveColumn(name, status) {
-    console.log('fired', name, status);
-    console.log(this.state);
-
-    // const fromColumn = this.state.filter(task => task.name !== name);
-    // console.log('​Board -> moveColumn -> fromColumn', fromColumn);
-    // const toColumnName = this.state.order[this.state.order.findIndex(status) + 1];
-    // console.log('​Board -> moveColumn -> toColumnName', toColumnName);
-    // const toColumn = this.state[toColumnName].concat({ name: name, status: toColumnName });
-    // console.log('​Board -> moveColumn -> toColumn', toColumn);
-    // this.setState({ status: fromColumn, toColumnName: toColumn });
   }
   handleChange(e) {
     const { value } = e.target;
@@ -69,5 +72,13 @@ class Board extends React.Component {
     );
   }
 }
+const mapStateToProps = ({ tasks, stories }, ownProps) => ({
+  tasks: tasks.slice().filter(task => String(task.boardID) === ownProps.match.params.boardID),
+  stories: stories.slice().filter(task => String(task.boardID) === ownProps.match.params.boardID),
+});
 
-export default Board;
+const mapDispatchToProps = dispatch => ({
+  addTask: () => dispatch(addTask()),
+  addStory: () => dispatch(addStory()),
+});
+export default connect(mapStateToProps)(Board);

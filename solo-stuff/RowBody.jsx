@@ -16,7 +16,12 @@ class Body extends Component {
   }
   render() {
     const tasks = this.state.tasks.map(task => (
-      <Task name={task.name} key={Math.random()} columnHeader={this.props.columnHeader} />
+      <Task
+        task={task}
+        name={task.name}
+        key={Math.random()}
+        columnHeader={this.props.columnHeader}
+      />
     ));
     return <div>{tasks}</div>;
   }

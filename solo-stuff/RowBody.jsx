@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import FlipMove from 'react-flip-move';
+
 import Task from './Task.jsx';
 import Story from './Story.jsx';
 
@@ -23,7 +25,7 @@ class Body extends Component {
               <Story
                 task={task}
                 name={task.name}
-                key={Math.random()}
+                key={task._id}
                 columnHeader={this.props.columnHeader}
               />
             );
@@ -32,13 +34,19 @@ class Body extends Component {
             <Task
               task={task}
               name={task.name}
-              key={Math.random()}
+              key={task._id}
               columnHeader={this.props.columnHeader}
             />
           );
         })
       : [];
-    return <div>{tasks}</div>;
+    return (
+      <div>
+        <FlipMove duration={400} easing="ease-in-out">
+          {tasks}
+        </FlipMove>
+      </div>
+    );
   }
 }
 

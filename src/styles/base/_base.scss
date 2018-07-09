@@ -14,26 +14,30 @@
   margin-right: 20px;
 }
 
-.LoginPage {
+.login-page {
   text-align: center;
 }
 
 .board-icon {
-  justify-content: center;
-}
-
-.DashboardPage {
-  text-align: center;
-  justify-content: center;
-}
-
-
-.Board {
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center;
 }
-  
+
+.dashboard-page {
+  text-align: center;
+  justify-content: center;
+}
+
+.board-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
 .board-rows {
   justify-content: center;
   text-align: center;
@@ -41,4 +45,9 @@
 
 body {
   font-family: 'Oswald', sans-serif;
+}
+
+.movers {
+  margin-right: 4px;
+  padding-right: 4px;
 }

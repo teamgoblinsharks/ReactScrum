@@ -9,6 +9,7 @@ const Task = props => {
     <div
       style={{
         border: '1px solid black',
+        backgroundColor: props.task.done ? 'green' : 'red',
       }}
     >
       <p>

@@ -62,9 +62,10 @@ export function updateStory(story, updates) {
       ...story,
       ...updates,
     };
-    const stories = getState()
-      .tasks.filter(x => x._id !== story._id)
-      .concat(updatedStory);
+    const stories = getState().stories.map(x => {
+      if (x._id !== story._id) return x;
+      return updatedStory;
+    });
     return dispatch({
       type: types.UPDATE_STORY,
       stories,
@@ -74,7 +75,7 @@ export function updateStory(story, updates) {
 
 export function deleteStory(storyId) {
   return async function(dispatch, getState) {
-    const stories = getState().tasks.filter(story => story._id !== storyId);
+    const stories = getState().stories.filter(story => story._id !== storyId);
     // const response = await fetch('http://localhost:3000/tasks', {
     //   method: 'POST',
     //   headers: {

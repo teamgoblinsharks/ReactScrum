@@ -5,6 +5,8 @@ const request = require('request');
 const bodyParser = require('body-parser');
 const taskController = require('./controllers/taskController');
 const boardController = require('./controllers/boardController');
+const storyController = require('./controllers/storyController');
+
 const cookieParser = require('cookie-parser');
 
 const { SimpleUser, User, fetchMongoData } = require('./mongo.js');
@@ -27,12 +29,12 @@ const github = {
   clientID: '8f7d91a63f56cb8593fd',
   clientSecret: '77d2df9309e5220194b998253edf4183a983ab72',
   redirectURI: 'http://localhost:3000/git',
-  postCodeURL: function() {
+  postCodeURL: function () {
     return `https://github.com/login/oauth/access_token?client_id=${this.clientID}&client_secret=${
       this.clientSecret
-    }&code=`;
+      }&code=`;
   },
-  authGetUrl: function() {
+  authGetUrl: function () {
     return `https://api.github.com/user?`;
   },
 };
@@ -130,6 +132,12 @@ app.get('/tasks/id?:id', taskController.getTasks);
 app.post('/tasks', taskController.addTask);
 
 app.get('/alltasks', taskController.getAllTasks);
+
+/// STORY ROUTES
+app.get('/stories/id?:id', storyController.getStories);
+app.post('/stories', storyController.addStory);
+
+app.get('/allstories', storyController.getAllStories);
 
 //BOARD ROUTES
 app.get('/boards/id?:id', boardController.getBoards);

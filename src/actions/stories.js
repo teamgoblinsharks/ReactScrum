@@ -1,16 +1,61 @@
 import * as types from '../constants/actionTypes';
 
-export function addStory(story) {
-  console.log(story);
-  return async function(dispatch, getState) {
+export function addStory(name, boardId) {
+  console.log(name);
+  console.log(boardId);
+  return async function (dispatch, getState) {
     const state = getState();
+    const stories = state.stories.slice();
+
     const newStory = {
-      name: story,
-      done: false,
+      boardId,
+      name,
     };
+
+    const response = await fetch('http://localhost:3000/stories', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newStory)
+    });
+
+    const data = await response.json();
+    console.log(data);
+    stories.push(data);
+
     return dispatch({
       type: types.ADD_STORY,
-      story: newStory,
+      stories
     });
   };
+}
+
+export function clearStories(stories) {
+  const newStories = stories.slice();
+  newStories.splice(0);
+
+  return {
+    type: types.CLEAR_STORIES,
+    stories: newStories
+  }
+}
+
+
+export function getStories(boardId) {
+  return async function (dispatch, getState) {
+    const state = getState();
+    const stories = state.stories.slice();
+
+    const response = await fetch(`http://localhost:3000/stories/id?id=${boardId}`);
+    const data = await response.json();
+    console.log(data);
+    data.forEach(story => stories.push(story));
+
+    return dispatch({
+      type: types.GET_STORIES,
+      stories
+    });
+  }
 }

@@ -20,8 +20,8 @@ export default class AppRouter extends Component {
           <Switch>
             <Route exact path="/" component={LoginPage} />
             <Route exact path="/signup" component={SignupPage} />
-            <Route exact path="/test/:userID" component={DashboardPage} />
-            <Route exact path="/test/:userID/:boardID" component={Board} />
+            <Route exact path="/test/:id" component={DashboardPage} />
+            <Route exact path="/test/:id/:board" component={Board} />
             <Route exact path="*" component={NotFoundPage} />
           </Switch>
         </div>

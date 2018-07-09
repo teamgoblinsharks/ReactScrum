@@ -72,3 +72,23 @@ export function updateTask(task, updates) {
     });
   };
 }
+
+export function deleteTask(taskId) {
+  return async function(dispatch, getState) {
+    const tasks = getState().tasks.filter(task => task._id !== taskId);
+    // const response = await fetch('http://localhost:3000/tasks', {
+    //   method: 'POST',
+    //   headers: {
+    //     Accept: 'application/json',
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(newTask),
+    // });
+
+    // const data = await response.json();
+    return dispatch({
+      type: types.DELETE_TASK,
+      tasks,
+    });
+  };
+}

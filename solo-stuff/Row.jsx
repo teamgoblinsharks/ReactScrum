@@ -6,7 +6,7 @@ const Row = props => {
   return (
     <div>
       <RowHeader columnHeader={props.columnHeader} />
-      <RowBody tasks={props.tasks} boardId={props.boardId} />
+      <RowBody isStory={props.isStory} tasks={props.tasks} boardId={props.boardId} />
     </div>
   );
 };

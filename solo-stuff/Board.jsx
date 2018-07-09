@@ -92,7 +92,7 @@ class Board extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="board">
         <h1>Board</h1>
         <div>
           <h1>Add new Task</h1>

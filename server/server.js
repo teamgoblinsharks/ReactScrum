@@ -130,6 +130,7 @@ app.get('/git', (req, res, next) => {
 /// TASK ROUTES
 app.get('/tasks/id?:id', taskController.getTasks);
 app.post('/tasks', taskController.addTask);
+app.post('/updatetasks', taskController.updateTask);
 
 app.get('/alltasks', taskController.getAllTasks);
 

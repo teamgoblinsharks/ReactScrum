@@ -1,13 +1,13 @@
 import * as types from '../constants/actionTypes.js';
 
 export function addTask(name, boardId) {
-  return async function(dispatch, getState) {
+  return async function (dispatch, getState) {
     const state = getState();
     const tasks = state.tasks.slice();
 
     const newTask = {
       boardId,
-      status: 'todo',
+      status: 'inProgress',
       name,
     };
 
@@ -41,7 +41,7 @@ export function clearTasks(tasks) {
 }
 
 export function getTasks(boardId) {
-  return async function(dispatch, getState) {
+  return async function (dispatch, getState) {
     const state = getState();
     const tasks = state.tasks.slice();
 
@@ -58,14 +58,29 @@ export function getTasks(boardId) {
 
 /// new stuff
 export function updateTask(task, updates) {
-  return async function(dispatch, getState) {
+  return async function (dispatch, getState) {
     const updatedTask = {
       ...task,
       ...updates,
     };
+
+    console.log('updatedTask', updatedTask);
+
+    const response = await fetch(`http://localhost:3000/updatetasks`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedTask),
+    });
+    const data = await response.json();
+
+    console.log('returnedtask', data);
+
     const tasks = getState()
       .tasks.filter(x => x._id !== task._id)
-      .concat(updatedTask);
+      .concat(data);
     return dispatch({
       type: types.UPDATE_TASK,
       tasks,

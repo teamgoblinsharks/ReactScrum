@@ -9,7 +9,7 @@ export function addTask(name, boardId) {
 
     const newTask = {
       boardId,
-      status: 'todo',
+      status: 'inProgress',
       name,
     };
 
@@ -62,7 +62,8 @@ export function getTasks(boardId) {
 
 /// new stuff
 export const updateTask = (task, updates) => {
-  return async function(dispatch, getState) {
+  console.log('update task')
+  return async function (dispatch, getState) {
     const updatedTask = {
       ...task,
       ...updates,

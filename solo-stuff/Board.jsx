@@ -90,7 +90,7 @@ class Board extends React.Component {
   render() {
     console.log(this.props);
     return (
-      <div>
+      <div className="board">
         <h1>Board</h1>
         <div>
           <h1>Add new Task</h1>
@@ -114,8 +114,8 @@ class Board extends React.Component {
           </form>
           <div className="board-rows">
             <Row columnHeader="stories" tasks={this.props.stories} boardId={this.props.match.params.id} />
-            <Row columnHeader="todos" tasks={this.props.tasks} boardId={this.props.match.params.id} />
-            <Row columnHeader="inProgress" tasks={this.state.inProgress} />
+            <Row columnHeader="todos" tasks={this.props.tasks} boardId={this.props.match.params.id} status={'todo'} />
+            <Row columnHeader="In Progress" tasks={this.props.tasks} status={'inProgress'} />
             <Row columnHeader="testing" tasks={this.state.testing} />
             <Row columnHeader="done" tasks={this.state.done} />
           </div>

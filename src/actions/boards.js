@@ -1,6 +1,7 @@
 import * as types from '../constants/actionTypes.js';
 
 export function addBoard(name, userId) {
+  
   return async function (dispatch, getState) {
     const state = getState();
     const boards = state.boards.slice();

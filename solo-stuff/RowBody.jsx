@@ -16,12 +16,15 @@ class Body extends Component {
   }
 
   render() {
-    const filteredTasks = this.props.tasks.filter(task => task.boardId === this.props.boardId);
+    const filteredTasks = this.props.tasks.filter(task => {
+      console.log(task);
+      return task.boardId === this.props.boardId && task.status === this.props.status;
+    });
 
     const tasks = filteredTasks.map(task => (
       <Task name={task.name} key={Math.random()} columnHeader={this.props.columnHeader} />
-
     ));
+
     return (
       <div>
         {tasks}

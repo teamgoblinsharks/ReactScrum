@@ -34,7 +34,6 @@ class DashboardPage extends React.Component {
     console.log(this.props);
     return (
       <div>
-        <h1>{this.props.match.params.id}</h1>
         <BoardList userID={this.props.match.params.id} history={this.props.history} addBoard={this.props.addBoard} boards={this.props.boards} />
       </div>
     );

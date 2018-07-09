@@ -3,45 +3,57 @@ import { connect } from 'react-redux';
 
 import { updateTask, deleteTask } from '../src/actions/tasks.js';
 
-const Task = props => {
-  const order = ['todo', 'inProgress', 'testing', 'done'];
-  return (
-    <div
-      style={{
-        border: '1px solid black',
-      }}
-    >
-      <p>
-        {props.name} <button onClick={() => props.deleteTask(props.task._id)}>X</button>
-      </p>
-      <span
-        onClick={() => {
-          const { status } = props.task;
-          const newStatus = order[order.indexOf(status) === 0 ? 0 : order.indexOf(status) - 1];
-          props.updateTask(props.task, { status: newStatus });
-        }}
-      >
-        move left
-      </span>
-      <span
-        onClick={() => {
-          const { status } = props.task;
-          const newStatus =
-            order[
-              order.indexOf(status) === order.length - 1
-                ? order.length - 1
-                : order.indexOf(status) + 1
-            ];
-          props.updateTask(props.task, { status: newStatus });
-        }}
-      >
-        move right
-      </span>
-    </div>
-  );
-};
+class Task extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      order: ['todo', 'inProgress', 'testing', 'done'],
+    };
+  }
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+  render() {
+    return (
+      <div
+        style={{
+          border: '1px solid black',
+          margin: '2px 2px 2px',
+        padding: '4px 4px 4px',
+        }}
+      >
+        <p>
+          {this.props.name}{' '}
+          <button onClick={() => this.props.deleteTask(this.props.task._id)}>X</button>
+        </p>
+        <span
+          onClick={() => {
+            const { status } = this.props.task;
+            const newStatus = this.state.order[
+              this.state.order.indexOf(status) === 0 ? 0 : this.state.order.indexOf(status) - 1
+            ];
+            this.props.updateTask(this.props.task, { status: newStatus });
+          }}
+        >
+          move left
+        </span>
+        <span
+          onClick={() => {
+            const { status } = this.props.task;
+            const newStatus = this.state.order[
+              this.state.order.indexOf(status) === this.state.order.length - 1
+                ? this.state.order.length - 1
+                : this.state.order.indexOf(status) + 1
+            ];
+            this.props.updateTask(this.props.task, { status: newStatus });
+          }}
+        >
+          move right
+        </span>
+      </div>
+    );
+  }
+}
+
+const mapDispatchToProps = dispatch => ({
   updateTask: (task, updates) => dispatch(updateTask(task, updates)),
   deleteTask: taskId => dispatch(deleteTask(taskId)),
 });

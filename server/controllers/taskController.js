@@ -8,6 +8,12 @@ const taskController = {
     }).then(result => res.json(result));
   },
 
+  deleteTask: (req, res) => {
+    Task.deleteOne({ _id: req.body._id }, (err, task) => {
+      if (err) return console.error(err);
+    }).then(result => res.json(result));
+  },
+
   getTasks: (req, res) => {
     Task.find({ boardId: req.query.id }, (err, tasks) => {
       if (err) return console.error(err);

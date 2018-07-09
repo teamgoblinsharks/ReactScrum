@@ -1,13 +1,13 @@
 import * as types from '../constants/actionTypes.js';
 
 export function addTask(name, boardId) {
-  return async function(dispatch, getState) {
+  return async function (dispatch, getState) {
     const state = getState();
     const tasks = state.tasks.slice();
 
     const newTask = {
       boardId,
-      status: 'inProgress',
+      status: 'todo',
       name,
     };
 
@@ -41,7 +41,7 @@ export function clearTasks(tasks) {
 }
 
 export function getTasks(boardId) {
-  return async function(dispatch, getState) {
+  return async function (dispatch, getState) {
     const state = getState();
     const tasks = state.tasks.slice();
 
@@ -58,7 +58,7 @@ export function getTasks(boardId) {
 
 /// new stuff
 export function updateTask(task, updates) {
-  return async function(dispatch, getState) {
+  return async function (dispatch, getState) {
     const updatedTask = {
       ...task,
       ...updates,
@@ -90,18 +90,22 @@ export function updateTask(task, updates) {
 }
 
 export function deleteTask(taskId) {
-  return async function(dispatch, getState) {
+  return async function (dispatch, getState) {
     const tasks = getState().tasks.filter(task => task._id !== taskId);
-    // const response = await fetch('http://localhost:3000/tasks', {
-    //   method: 'POST',
-    //   headers: {
-    //     Accept: 'application/json',
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(newTask),
-    // });
 
-    // const data = await response.json();
+
+    const response = await fetch('http://localhost:3000/tasks', {
+      method: 'DELETE',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ _id: taskId }),
+    });
+
+    const data = await response.json();
+    console.log(data);
+
     return dispatch({
       type: types.DELETE_TASK,
       tasks,

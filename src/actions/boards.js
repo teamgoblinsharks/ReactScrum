@@ -1,7 +1,7 @@
 import * as types from '../constants/actionTypes.js';
 
 export function addBoard(name, userId) {
-  return async function(dispatch, getState) {
+  return async function (dispatch, getState) {
     const state = getState();
     const boards = state.boards.slice();
 
@@ -30,7 +30,7 @@ export function addBoard(name, userId) {
 }
 
 export function getBoards(userId) {
-  return async function(dispatch, getState) {
+  return async function (dispatch, getState) {
     const state = getState();
     const boards = state.boards.slice();
 
@@ -47,19 +47,16 @@ export function getBoards(userId) {
 }
 
 export function deleteBoard(boardId) {
-  return async function(dispatch, getState) {
+  return async function (dispatch, getState) {
     const boards = getState().boards.filter(board => board._id !== boardId);
-    // const response = await fetch('http://localhost:3000/boards', {
-    //   method: 'POST',
-    //   headers: {
-    //     Accept: 'application/json',
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(newBoard),
-    // });
-
-    // const data = await response.json();
-    // boards.push(data);
+    const response = await fetch('http://localhost:3000/boards', {
+      method: 'DELETE',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ _id: boardId }),
+    });
 
     return dispatch({
       type: types.DELETE_BOARD,

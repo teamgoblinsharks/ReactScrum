@@ -7,6 +7,12 @@ const boardController = {
     }).then(result => res.json(result));
   },
 
+  deleteBoard: (req, res) => {
+    Board.deleteOne({ _id: req.body._id }, (err, task) => {
+      if (err) return console.error(err);
+    }).then(result => res.json(result));
+  },
+
   addBoard: (req, res) => {
     Board.create({
       userId: req.body.userId,

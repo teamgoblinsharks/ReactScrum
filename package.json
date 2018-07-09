@@ -33,7 +33,11 @@
     "pg": "^7.4.3",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
+<<<<<<< HEAD
     "react-draggable": "^3.0.5",
+=======
+    "react-flip-move": "^3.0.2",
+>>>>>>> 923bd7f8ed29d5ef7f60b6d36c3e11ba9025f45f
     "react-redux": "^5.0.7",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",

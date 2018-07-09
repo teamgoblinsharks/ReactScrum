@@ -7,7 +7,7 @@ export function addTask(name, boardId) {
 
     const newTask = {
       boardId,
-      status: 'inProgress',
+      status: 'todo',
       name,
     };
 

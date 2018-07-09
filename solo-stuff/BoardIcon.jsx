@@ -1,16 +1,44 @@
 import React from 'react';
 import Row from './Row.jsx';
 
-export default props => {
+import { connect } from 'react-redux';
+
+import { deleteBoard } from '../src/actions/boards.js';
+
+const BoardIcon = props => {
+  let clickedButton = false;
   return (
     <div
       style={{
         border: '1px solid black',
       }}
-      onClick={() => props.history.push(`/test/${props.boardId}/${props.name}`)}
+      onClick={() => {
+        if (!clickedButton) props.history.push(`/test/${props.boardId}/${props.name}`);
+      }}
     >
-      <p>BoardIcon</p>
+      <p>
+        BoardIcon
+        <button
+          onClick={() => {
+            clickedButton = true;
+            props.deleteBoard(props.boardId);
+          }}
+        >
+          X
+        </button>
+      </p>
       <p>{props.name}</p>
     </div>
   );
 };
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  deleteBoard: boardId => {
+    dispatch(deleteBoard(boardId));
+  },
+});
+
+export default connect(
+  undefined,
+  mapDispatchToProps
+)(BoardIcon);

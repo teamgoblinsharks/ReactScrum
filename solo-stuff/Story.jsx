@@ -1,11 +1,39 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-const Story = () => {
+import { updateStory, deleteStory } from '../src/actions/stories.js';
+
+const Task = props => {
+  const order = ['todo', 'inProgress', 'testing', 'done'];
   return (
-    <div>
-      <p>This is a story</p>
+    <div
+      style={{
+        border: '1px solid black',
+        backgroundColor: props.task.done ? 'green' : 'red',
+      }}
+    >
+      <p>
+        {props.name} <button onClick={() => props.deleteTask(props.task._id)}>X</button>
+      </p>
+      <span
+        onClick={() => {
+          let { done } = props.task;
+          console.log('​done', done);
+          props.updateStory(props.task, { done: !done });
+        }}
+      >
+        Toggle
+      </span>
     </div>
   );
 };
 
-export default Story;
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  updateStory: (task, updates) => dispatch(updateStory(task, updates)),
+  deleteTask: taskId => dispatch(deleteStory(taskId)),
+});
+
+export default connect(
+  undefined,
+  mapDispatchToProps
+)(Task);

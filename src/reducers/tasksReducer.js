@@ -20,7 +20,8 @@ export default (state = [], action) => {
 
     case types.UPDATE_TASK:
       return action.tasks;
-
+    case types.DELETE_TASK:
+      return action.tasks;
     default:
       return state;
   }

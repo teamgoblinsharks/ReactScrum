@@ -4,9 +4,9 @@ import RowBody from './RowBody.jsx';
 
 const Row = props => {
   return (
-    <div class="row">
+    <div className="row">
       <RowHeader columnHeader={props.columnHeader} />
-      <RowBody tasks={props.tasks} boardId={props.boardId} status={props.status}/>
+      <RowBody isStory={props.isStory} tasks={props.tasks} boardId={props.boardId} />
     </div>
   );
 };

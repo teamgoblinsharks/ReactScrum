@@ -10,15 +10,18 @@ const Task = props => {
       style={{
         border: '1px solid black',
       }}
-      onClick={() => updateTask(props.task, { status: 'inProgress' })}
+      onClick={() => props.updateTask(props.task, { status: 'done' })}
     >
       <p>{props.name}</p>
     </div>
   );
 };
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch, ownProps) => ({
   updateTask: (task, updates) => dispatch(updateTask(task, updates)),
 });
 
-export default connect()(Task);
+export default connect(
+  undefined,
+  mapDispatchToProps
+)(Task);

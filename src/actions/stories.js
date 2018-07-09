@@ -1,9 +1,7 @@
 import * as types from '../constants/actionTypes';
 
 export function addStory(name, boardId) {
-  console.log(name);
-  console.log(boardId);
-  return async function (dispatch, getState) {
+  return async function(dispatch, getState) {
     const state = getState();
     const stories = state.stories.slice();
 
@@ -15,19 +13,18 @@ export function addStory(name, boardId) {
     const response = await fetch('http://localhost:3000/stories', {
       method: 'POST',
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(newStory)
+      body: JSON.stringify(newStory),
     });
 
     const data = await response.json();
-    console.log(data);
     stories.push(data);
 
     return dispatch({
       type: types.ADD_STORY,
-      stories
+      stories,
     });
   };
 }
@@ -38,24 +35,22 @@ export function clearStories(stories) {
 
   return {
     type: types.CLEAR_STORIES,
-    stories: newStories
-  }
+    stories: newStories,
+  };
 }
 
-
 export function getStories(boardId) {
-  return async function (dispatch, getState) {
+  return async function(dispatch, getState) {
     const state = getState();
     const stories = state.stories.slice();
 
     const response = await fetch(`http://localhost:3000/stories/id?id=${boardId}`);
     const data = await response.json();
-    console.log(data);
     data.forEach(story => stories.push(story));
 
     return dispatch({
       type: types.GET_STORIES,
-      stories
+      stories,
     });
-  }
+  };
 }

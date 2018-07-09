@@ -20,9 +20,10 @@ export function addBoard(name, userId) {
     });
 
     const data = await response.json();
+    console.log(data);
 
     boards.push(data);
-    
+
     return dispatch({
       type: types.ADD_BOARD,
       boards,

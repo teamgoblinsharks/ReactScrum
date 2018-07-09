@@ -131,18 +131,22 @@ app.get('/git', (req, res, next) => {
 app.get('/tasks/id?:id', taskController.getTasks);
 app.post('/tasks', taskController.addTask);
 app.post('/updatetasks', taskController.updateTask);
+app.delete('/tasks', taskController.deleteTask);
 
 app.get('/alltasks', taskController.getAllTasks);
 
 /// STORY ROUTES
 app.get('/stories/id?:id', storyController.getStories);
 app.post('/stories', storyController.addStory);
+app.post('/updatestories', storyController.updateStory);
+app.delete('/stories', storyController.deleteStory);
 
 app.get('/allstories', storyController.getAllStories);
 
 //BOARD ROUTES
 app.get('/boards/id?:id', boardController.getBoards);
 app.post('/boards', boardController.addBoard);
+app.delete('/boards', boardController.deleteBoard);
 
 app.get('/allboards', boardController.getAllBoards);
 

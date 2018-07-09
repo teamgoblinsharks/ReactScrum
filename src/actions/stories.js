@@ -8,6 +8,7 @@ export function addStory(name, boardId) {
     const newStory = {
       boardId,
       name,
+      done: false,
     };
 
     const response = await fetch('http://localhost:3000/stories', {
@@ -50,6 +51,43 @@ export function getStories(boardId) {
 
     return dispatch({
       type: types.GET_STORIES,
+      stories,
+    });
+  };
+}
+
+export function updateStory(story, updates) {
+  return async function(dispatch, getState) {
+    const updatedStory = {
+      ...story,
+      ...updates,
+    };
+    const stories = getState().stories.map(x => {
+      if (x._id !== story._id) return x;
+      return updatedStory;
+    });
+    return dispatch({
+      type: types.UPDATE_STORY,
+      stories,
+    });
+  };
+}
+
+export function deleteStory(storyId) {
+  return async function(dispatch, getState) {
+    const stories = getState().stories.filter(story => story._id !== storyId);
+    // const response = await fetch('http://localhost:3000/tasks', {
+    //   method: 'POST',
+    //   headers: {
+    //     Accept: 'application/json',
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(newTask),
+    // });
+
+    // const data = await response.json();
+    return dispatch({
+      type: types.DELETE_STORY,
       stories,
     });
   };

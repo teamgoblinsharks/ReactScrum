@@ -33,14 +33,13 @@ class Board extends React.Component {
     this.handleStoryChange = this.handleStoryChange.bind(this);
 
     this.state = {
-      // order: ['todo', 'inProgress', 'testing', 'done'],
       taskValue: '',
       storyValue: '',
-      // stories: [{ name: 'user will something' }],
-      // todo: [],
-      inProgress: [{ name: 'im in progress', status: 'inProgress' }],
-      testing: [{ name: 'test that button', status: 'testing' }],
-      done: [{ name: 'woooooo!', status: 'done' }],
+      stories: [],
+      todo: [],
+      inProgress: [],
+      testing: [],
+      done: [],
     };
   }
 
@@ -126,6 +125,7 @@ class Board extends React.Component {
           </form>
           <div className="board-rows">
             <Row
+              isStory={true}
               columnHeader="Stories"
               tasks={this.props.stories}
               boardId={this.props.match.params.id}

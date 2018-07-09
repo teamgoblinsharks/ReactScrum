@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { updateTask } from '../src/actions/tasks.js';
+import { updateTask, deleteTask } from '../src/actions/tasks.js';
 
 const Task = props => {
   const order = ['todo', 'inProgress', 'testing', 'done'];
@@ -13,8 +13,10 @@ const Task = props => {
         padding: '4px 4px 4px',
       }}
     >
-      <p>{props.name}</p>
-      <span className='movers'
+      <p>
+        {props.name} <button onClick={() => props.deleteTask(props.task._id)}>X</button>
+      </p>
+      <span
         onClick={() => {
           const { status } = props.task;
           const newStatus = order[order.indexOf(status) === 0 ? 0 : order.indexOf(status) - 1];
@@ -43,6 +45,7 @@ const Task = props => {
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   updateTask: (task, updates) => dispatch(updateTask(task, updates)),
+  deleteTask: taskId => dispatch(deleteTask(taskId)),
 });
 
 export default connect(

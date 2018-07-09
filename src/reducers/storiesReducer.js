@@ -8,6 +8,10 @@ export default (state = [], action) => {
       stories = action.stories;
 
       return stories;
+    case types.UPDATE_STORY:
+      stories = action.stories;
+
+      return stories;
 
     case types.GET_STORIES:
       stories = action.stories;
@@ -17,6 +21,10 @@ export default (state = [], action) => {
     case types.CLEAR_STORIES:
       stories = action.stories;
 
+      return stories;
+
+    case types.DELETE_STORY:
+      stories = action.stories;
       return stories;
 
     default:

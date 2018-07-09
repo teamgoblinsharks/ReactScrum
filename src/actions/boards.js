@@ -1,21 +1,51 @@
 import * as types from '../constants/actionTypes.js';
 
-export function addBoard(name) {
-  return async function(dispatch, getState) {
+export function addBoard(name, userId) {
+  return async function (dispatch, getState) {
     const state = getState();
-    console.log(state);
-    const boards = state.boards;
+    const boards = state.boards.slice();
 
     const newBoard = {
-      name: name,
+      userId,
+      name,
     };
 
-    boards.push(newBoard);
-    console.log('boards after push', boards);
+    const response = await fetch('http://localhost:3000/boards', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newBoard)
+    });
+
+    const data = await response.json();
+    console.log(data);
+
+    boards.push(data);
 
     return dispatch({
       type: types.ADD_BOARD,
       boards,
     });
   };
+}
+
+export function getBoards(userId) {
+  console.log(userId);
+
+  return async function (dispatch, getState) {
+    const state = getState();
+    const boards = state.boards.slice();
+
+    const response = await fetch(`http://localhost:3000/boards/id?id=${userId}`);
+    const data = await response.json();
+
+    data.forEach(board => boards.push(board));
+
+    return dispatch({
+      type: types.GET_BOARDS,
+      boards
+    })
+  }
 }

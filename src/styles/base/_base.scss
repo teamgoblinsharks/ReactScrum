@@ -3,4 +3,16 @@
   padding: 20px;
 }
 
-//tes
+  &-title {
+    font-size: 20px;
+    color: red;
+  }
+
+  &-rows {
+    display: flex;
+  }
+}
+
+.row {
+  margin-right: 20px;
+}

@@ -4,11 +4,11 @@ import Body from './Body.jsx';
 
 const Row = () => {
   return (
-    <div>
-      <RowHeader title={"tasks"} />
+    <div className="row">
+      <RowHeader title={'tasks'} />
       <Body />
     </div>
-  )
-}
+  );
+};
 
 export default Row;

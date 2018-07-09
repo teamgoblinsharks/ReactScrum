@@ -93,9 +93,9 @@ class Board extends React.Component {
 
   render() {
     return (
-    <div className='Board'>
+    <div className='board'>
       <div>
-        <h1>Welcome To Your ScrumBoard</h1>
+        <h1 style={{textAlign: 'center'}}>Welcome To Your ScrumBoard</h1>
         <div>
           <h1>Build Your Board</h1>
           <form onSubmit={this.handleSubmit}>
@@ -126,18 +126,18 @@ class Board extends React.Component {
           </form>
           <div className="board-rows">
             <Row
-              columnHeader="stories"
+              columnHeader="Stories"
               tasks={this.props.stories}
               boardId={this.props.match.params.id}
             />
             <Row
-              columnHeader="todos"
+              columnHeader="Todos"
               tasks={this.state.todo}
               boardId={this.props.match.params.id}
             />
-            <Row columnHeader="inProgress" tasks={this.state.inProgress} />
-            <Row columnHeader="testing" tasks={this.state.testing} />
-            <Row columnHeader="done" tasks={this.state.done} />
+            <Row columnHeader="In Progress" tasks={this.state.inProgress} />
+            <Row columnHeader="Testing" tasks={this.state.testing} />
+            <Row columnHeader="Done" tasks={this.state.done} />
           </div>
         </div>
       </div>

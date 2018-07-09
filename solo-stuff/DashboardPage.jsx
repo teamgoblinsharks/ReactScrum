@@ -30,7 +30,7 @@ class DashboardPage extends React.Component {
 
   render() {
     return (
-      <div className='DashboardPage'>
+      <div className='dashboard-page'>
         <h1>{this.props.match.params.id}</h1>
         <BoardList
           userID={this.props.match.params.id}

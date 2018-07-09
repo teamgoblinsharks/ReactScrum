@@ -36,7 +36,7 @@ class BoardList extends React.Component {
     ));
 
     return (
-    <div className='BoardList'>
+    <div className='board-list'>
       <div>
         <h1>Welcome To Your Board List!</h1>
         <form onSubmit={this.handleSubmit}>

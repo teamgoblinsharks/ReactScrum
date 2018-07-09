@@ -9,22 +9,21 @@ const Task = props => {
     <div
       style={{
         border: '1px solid black',
-        margin: '2px 2px',
-        padding: '4px 4px',
-
+        margin: '2px 2px 2px',
+        padding: '4px 4px 4px',
       }}
     >
       <p>{props.name}</p>
-      <span
+      <span className='movers'
         onClick={() => {
           const { status } = props.task;
           const newStatus = order[order.indexOf(status) === 0 ? 0 : order.indexOf(status) - 1];
           props.updateTask(props.task, { status: newStatus });
         }}
       >
-        move left
+        Move Left
       </span>
-      <span
+      <span 
         onClick={() => {
           const { status } = props.task;
           const newStatus =
@@ -36,7 +35,7 @@ const Task = props => {
           props.updateTask(props.task, { status: newStatus });
         }}
       >
-        move right
+        Move Right
       </span>
     </div>
   );

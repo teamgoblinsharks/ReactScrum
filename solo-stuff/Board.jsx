@@ -90,10 +90,11 @@ class Board extends React.Component {
 
   render() {
     return (
-      <div className="board">
-        <h1>Board</h1>
+    <div className='board'>
+      <div>
+        <h1 style={{textAlign: 'center'}}>Welcome To Your ScrumBoard</h1>
         <div>
-          <h1>Add new Task</h1>
+          <h1>Build Your Board</h1>
           <form onSubmit={this.handleSubmit}>
             <input
               type="text"
@@ -123,7 +124,7 @@ class Board extends React.Component {
             <div className="board-rows">
               <Row
                 isStory={true}
-                columnHeader="stories"
+                columnHeader="Stories"
                 tasks={this.props.stories}
                 boardId={this.props.match.params.id}
               />
@@ -138,6 +139,7 @@ class Board extends React.Component {
             </div>
         </div>
       </div>
+    </div>
     );
   }
 }

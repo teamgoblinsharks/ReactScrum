@@ -13,3 +13,41 @@
 .row {
   margin-right: 20px;
 }
+
+.login-page {
+  text-align: center;
+}
+
+.board-icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.dashboard-page {
+  text-align: center;
+  justify-content: center;
+}
+
+.board-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.board-rows {
+  justify-content: center;
+  text-align: center;
+}
+
+body {
+  font-family: 'Oswald', sans-serif;
+}
+
+.movers {
+  margin-right: 4px;
+  padding-right: 4px;
+}

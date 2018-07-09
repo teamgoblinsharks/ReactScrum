@@ -16,6 +16,8 @@ class Task extends React.Component {
       <div
         style={{
           border: '1px solid black',
+          margin: '2px 2px 2px',
+        padding: '4px 4px 4px',
         }}
       >
         <p>

@@ -3,8 +3,8 @@ import Form from './Form.jsx';
 import axios from 'axios';
 
 const LoginPage = props => (
-  <div>
-    <h1>Login</h1>
+  <div className="login-page">
+    <h1 className="login-title">Welcome to ReactScrumBoard!</h1>
     <Form formRoute={'/login'} history={props.history} />
     <p>
       Need an account? Sign up{' '}

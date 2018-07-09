@@ -5,7 +5,7 @@ class Body extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tasks: [],
+      // tasks: [],
     };
   }
   componentDidMount() {
@@ -14,14 +14,17 @@ class Body extends Component {
   componentWillReceiveProps(nextProps) {
     // this.setState(() => ({ tasks: nextProps.tasks }));
   }
+
   render() {
-    // const tasks = this.state.tasks.map(task => (
-    //   <Task name={task.name} key={Math.random()} columnHeader={this.props.columnHeader} />
-    // ));
+    const filteredTasks = this.props.tasks.filter(task => task.boardId === this.props.boardId);
+
+    const tasks = filteredTasks.map(task => (
+      <Task name={task.name} key={Math.random()} columnHeader={this.props.columnHeader} />
+    ));
     return (
       <div>
         tasks
-        {/* {tasks} */}
+        {tasks}
       </div>
     );
   }

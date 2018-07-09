@@ -1,18 +1,18 @@
 import React from 'react';
 import Row from './Row.jsx';
-import * as boardActions from '../src/actions/boards.js';
+import * as taskActions from '../src/actions/tasks.js';
 import { connect } from 'react-redux';
 
 const mapDispatchToProps = dispatch => {
   return {
-    addBoard: (name, userId) => dispatch(boardActions.addBoard(name, userId)),
-    getBoards: (userId) => dispatch(boardActions.getBoards(userId))
+    addTask: (name, boardId) => dispatch(taskActions.addTask(name, boardId)),
+    getTasks: (boardId) => dispatch(taskActions.getTasks(boardId))
   };
 };
 
 const mapStateToProps = store => {
   return {
-    boards: store.boards,
+    tasks: store.tasks,
   };
 };
 
@@ -32,6 +32,12 @@ class Board extends React.Component {
       // testing: [{ name: 'test that button', status: 'testing' }],
       // done: [{ name: 'woooooo!', status: 'done' }],
     };
+  }
+
+  componentDidMount() {
+    if (this.props.tasks.length === 0) {
+      this.props.getTasks(this.props.match.params.id);
+    }
   }
 
   handleSubmit(e) {
@@ -62,6 +68,7 @@ class Board extends React.Component {
     this.setState({ value });
   }
   render() {
+
     return (
       <div>
         <h1>Board</h1>
@@ -74,14 +81,14 @@ class Board extends React.Component {
               onChange={this.handleChange}
               value={this.state.value}
             />
-            <button onClick={this.handleSubmit}>Add New Task</button>
+            <button onClick={() => this.props.addTask(this.state.value, this.props.match.params.id)}>Add New Task</button>
           </form>
           <div className="board-rows">
-            <Row columnHeader="stories" tasks={this.state.stories} />
-            <Row columnHeader="todos" tasks={this.state.todo} />
-            <Row columnHeader="inProgress" tasks={this.state.inProgress} />
-            <Row columnHeader="testing" tasks={this.state.testing} />
-            <Row columnHeader="done" tasks={this.state.done} />
+            {/* <Row columnHeader="stories" tasks={this.state.stories} /> */}
+            <Row columnHeader="todos" tasks={this.props.tasks} boardId={this.props.match.params.id}/>
+            {/* <Row columnHeader="inProgress" tasks={this.state.inProgress} /> */}
+            {/* <Row columnHeader="testing" tasks={this.state.testing} /> */}
+            {/* <Row columnHeader="done" tasks={this.state.done} /> */}
           </div>
         </div>
       </div>

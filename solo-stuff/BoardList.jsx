@@ -35,7 +35,6 @@ class BoardList extends React.Component {
         key={Math.random()}
       />
     ));
-    console.log('Board List Props', this.props)
 
     return (
       <div>

@@ -20,7 +20,6 @@ export function addBoard(name, userId) {
     });
 
     const data = await response.json();
-    console.log('data', data);
 
     boards.push(data);
 
@@ -43,7 +42,6 @@ export function getBoards(userId) {
 
     data.forEach(board => boards.push(board));
 
-    console.log('get boards reducer', boards);
     return dispatch({
       type: types.GET_BOARDS,
       boards

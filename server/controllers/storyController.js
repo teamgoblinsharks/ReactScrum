@@ -28,6 +28,12 @@ const storyController = {
       if (err) return console.error(err);
     }).then(result => res.json(result));
   },
+
+  updateStory: (req, res) => {
+    Story.findOneAndUpdate({ _id: req.body._id }, { done: req.body.done }, { new: true }, (err, story) => {
+      if (err) return console.error(err);
+    }).then(result => res.json(result));
+  }
 };
 
 module.exports = storyController;

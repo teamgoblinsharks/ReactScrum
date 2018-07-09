@@ -138,6 +138,7 @@ app.get('/alltasks', taskController.getAllTasks);
 /// STORY ROUTES
 app.get('/stories/id?:id', storyController.getStories);
 app.post('/stories', storyController.addStory);
+app.post('/updatestories', storyController.updateStory);
 app.delete('/stories', storyController.deleteStory);
 
 app.get('/allstories', storyController.getAllStories);

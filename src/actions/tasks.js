@@ -7,7 +7,7 @@ export function addTask(name, boardId) {
 
     const newTask = {
       boardId,
-      status: 'inProgress',
+      status: 'todo',
       name,
     };
 
@@ -78,9 +78,10 @@ export function updateTask(task, updates) {
 
     console.log('returnedtask', data);
 
-    const tasks = getState()
-      .tasks.filter(x => x._id !== task._id)
-      .concat(data);
+    const tasks = getState().tasks.map(x => {
+      if (x._id !== task._id) return x;
+      return updatedTask;
+    });
     return dispatch({
       type: types.UPDATE_TASK,
       tasks,

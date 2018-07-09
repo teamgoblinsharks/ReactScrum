@@ -62,9 +62,21 @@ export function updateStory(story, updates) {
       ...story,
       ...updates,
     };
-    const stories = getState()
-      .stories.filter(x => x._id !== story._id)
-      .concat(updatedStory);
+
+    const response = await fetch(`http://localhost:3000/updatestories`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedStory),
+    });
+
+    const stories = getState().stories.map(x => {
+      if (x._id !== story._id) return x;
+      return updatedStory;
+    });
+
     return dispatch({
       type: types.UPDATE_STORY,
       stories,
@@ -75,18 +87,17 @@ export function updateStory(story, updates) {
 export function deleteStory(storyId) {
   return async function (dispatch, getState) {
     const stories = getState().stories.filter(story => story._id !== storyId);
+    const response = await fetch('http://localhost:3000/stories', {
+      method: 'DELETE',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ _id: storyId }),
+    });
 
+    const data = await response.json();
 
-    // const response = await fetch('http://localhost:3000/tasks', {
-    //   method: 'POST',
-    //   headers: {
-    //     Accept: 'application/json',
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(newTask),
-    // });
-
-    // const data = await response.json();
     return dispatch({
       type: types.DELETE_STORY,
       stories,

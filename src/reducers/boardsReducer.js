@@ -3,6 +3,7 @@ import * as types from '../constants/actionTypes';
 const initialState = [
   {
     _id: 1,
+    userID: '5b42715d0d343182797af605',
     name: 'final project',
   },
   {

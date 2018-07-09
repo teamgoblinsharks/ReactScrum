@@ -1,11 +1,9 @@
 import React from 'react';
 import Row from './Row.jsx';
+
 import * as taskActions from '../src/actions/tasks.js';
 import * as storyActions from '../src/actions/stories.js';
-
 import { connect } from 'react-redux';
-// import { IS_LOGGED_IN } from '../src/constants/actionTypes';
-// import tasksReducer from '../src/reducers/tasksReducer';
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -122,22 +120,22 @@ class Board extends React.Component {
               Add New Story
             </button>
           </form>
-          <div className="board-rows">
-            <Row
-              isStory={true}
-              columnHeader="stories"
-              tasks={this.props.stories}
-              boardId={this.props.match.params.id}
-            />
-            <Row
-              columnHeader="Todos"
-              tasks={this.state.todo}
-              boardId={this.props.match.params.id}
-            />
-            <Row columnHeader="In Progress" tasks={this.state.inProgress} />
-            <Row columnHeader="Testing" tasks={this.state.testing} />
-            <Row columnHeader="Done" tasks={this.state.done} />
-          </div>
+            <div className="board-rows">
+              <Row
+                isStory={true}
+                columnHeader="stories"
+                tasks={this.props.stories}
+                boardId={this.props.match.params.id}
+              />
+              <Row
+                columnHeader="Todos"
+                tasks={this.state.todo}
+                boardId={this.props.match.params.id}
+              />
+              <Row columnHeader="In Progress" tasks={this.state.inProgress} />
+              <Row columnHeader="Testing" tasks={this.state.testing} />
+              <Row columnHeader="Done" tasks={this.state.done} />
+            </div>
         </div>
       </div>
     );

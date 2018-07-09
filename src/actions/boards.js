@@ -1,7 +1,7 @@
 import * as types from '../constants/actionTypes.js';
 
 export function addBoard(name, userId) {
-  return async function (dispatch, getState) {
+  return async function(dispatch, getState) {
     const state = getState();
     const boards = state.boards.slice();
 
@@ -13,15 +13,13 @@ export function addBoard(name, userId) {
     const response = await fetch('http://localhost:3000/boards', {
       method: 'POST',
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(newBoard)
+      body: JSON.stringify(newBoard),
     });
 
     const data = await response.json();
-    console.log(data);
-
     boards.push(data);
 
     return dispatch({
@@ -32,9 +30,7 @@ export function addBoard(name, userId) {
 }
 
 export function getBoards(userId) {
-  console.log(userId);
-
-  return async function (dispatch, getState) {
+  return async function(dispatch, getState) {
     const state = getState();
     const boards = state.boards.slice();
 
@@ -45,7 +41,7 @@ export function getBoards(userId) {
 
     return dispatch({
       type: types.GET_BOARDS,
-      boards
-    })
-  }
+      boards,
+    });
+  };
 }

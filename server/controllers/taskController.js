@@ -21,6 +21,12 @@ const taskController = {
       status: req.body.status
     }).then(result => res.json(result))
       .catch(err => console.error(err));
+  },
+
+  updateTask: (req, res) => {
+    Task.findOneAndUpdate({ _id: req.body._id }, { status: req.body.status }, { new: true }, (err, task) => {
+      if (err) return console.error(err);
+    }).then(result => res.json(result));
   }
 }
 

@@ -16,6 +16,12 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case types.ADD_BOARD:
       boards = action.boards;
+
+      return boards;
+
+    case types.GET_BOARDS:
+      boards = action.boards
+
       return boards;
     default:
       return state;

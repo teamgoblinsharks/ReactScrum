@@ -131,7 +131,7 @@ class Board extends React.Component {
             />
             <Row
               columnHeader="todos"
-              tasks={this.props.tasks}
+              tasks={this.state.todo}
               boardId={this.props.match.params.id}
             />
             <Row columnHeader="inProgress" tasks={this.state.inProgress} />

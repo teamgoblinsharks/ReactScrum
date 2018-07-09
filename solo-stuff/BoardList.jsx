@@ -36,8 +36,9 @@ class BoardList extends React.Component {
     ));
 
     return (
+    <div className='BoardList'>
       <div>
-        <h1>Board List</h1>
+        <h1>Welcome To Your Board List!</h1>
         <form onSubmit={this.handleSubmit}>
           <input
             type="text"
@@ -52,6 +53,7 @@ class BoardList extends React.Component {
         </form>
         {Boards}
       </div>
+    </div>
     );
   }
 }

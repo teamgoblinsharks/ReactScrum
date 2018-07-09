@@ -9,6 +9,9 @@ const Task = props => {
     <div
       style={{
         border: '1px solid black',
+        margin: '2px 2px',
+        padding: '4px 4px',
+
       }}
       onClick={() => updateTask(props.task, { status: 'inProgress' })}
     >

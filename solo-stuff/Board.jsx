@@ -90,10 +90,11 @@ class Board extends React.Component {
   render() {
     console.log(this.props);
     return (
+    <div className='Board'>
       <div>
-        <h1>Board</h1>
+        <h1>Welcome To Your ScrumBoard</h1>
         <div>
-          <h1>Add new Task</h1>
+          <h1>Build Your Board</h1>
           <form onSubmit={this.handleSubmit}>
             <input
               type="text"
@@ -112,15 +113,16 @@ class Board extends React.Component {
             />
             <button onClick={() => this.props.addStory(this.state.storyValue, this.props.match.params.id)}>Add New Story</button>
           </form>
-          <div className="board-rows">
-            <Row columnHeader="stories" tasks={this.props.stories} boardId={this.props.match.params.id} />
-            <Row columnHeader="todos" tasks={this.props.tasks} boardId={this.props.match.params.id} />
-            <Row columnHeader="inProgress" tasks={this.state.inProgress} />
-            <Row columnHeader="testing" tasks={this.state.testing} />
-            <Row columnHeader="done" tasks={this.state.done} />
+          <div className="board-rows" style={{height: '600px', weight: '800px'}}>
+            <Row columnHeader="Stories" tasks={this.props.stories} boardId={this.props.match.params.id} />
+            <Row columnHeader="Todos" tasks={this.props.tasks} boardId={this.props.match.params.id} />
+            <Row columnHeader="In Progress" tasks={this.state.inProgress} />
+            <Row columnHeader="Testing" tasks={this.state.testing} />
+            <Row columnHeader="Done" tasks={this.state.done} />
           </div>
         </div>
       </div>
+    </div>
     );
   }
 }

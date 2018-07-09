@@ -24,7 +24,6 @@ class Body extends Component {
     ));
     return (
       <div>
-        tasks
         {tasks}
       </div>
     );

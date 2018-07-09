@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 const mapDispatchToProps = dispatch => {
   return {
     addBoard: (name, userId) => dispatch(boardActions.addBoard(name, userId)),
-    getBoards: (userId) => dispatch(boardActions.getBoards(userId))
+    getBoards: userId => dispatch(boardActions.getBoards(userId)),
   };
 };
 
@@ -17,7 +17,6 @@ const mapStateToProps = store => {
 };
 
 class DashboardPage extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {};
@@ -29,12 +28,16 @@ class DashboardPage extends React.Component {
     }
   }
 
-
   render() {
-    console.log(this.props);
     return (
       <div>
-        <BoardList userID={this.props.match.params.id} history={this.props.history} addBoard={this.props.addBoard} boards={this.props.boards} />
+        <h1>{this.props.match.params.id}</h1>
+        <BoardList
+          userID={this.props.match.params.id}
+          history={this.props.history}
+          addBoard={this.props.addBoard}
+          boards={this.props.boards}
+        />
       </div>
     );
   }

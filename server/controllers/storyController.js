@@ -22,11 +22,11 @@ const storyController = {
       .catch(err => console.error(err));
   },
 
-  deleteStory: (req, res) => {
-    Story.deleteOne({_id: req.body._id}, (err, stories) => {
-      
-    })
-  }
+  // deleteStory: (req, res) => {
+  //   Story.deleteOne({_id: req.body._id}, (err, stories) => {
+
+  //   })
+  // }
 
 
 }

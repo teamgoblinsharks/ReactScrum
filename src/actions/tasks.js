@@ -1,8 +1,6 @@
 import * as types from '../constants/actionTypes.js';
 
 export function addTask(name, boardId) {
-  console.log('name', name);
-  console.log('board id', boardId)
   return async function (dispatch, getState) {
     const state = getState();
     const tasks = state.tasks.slice();
@@ -16,14 +14,13 @@ export function addTask(name, boardId) {
     const response = await fetch('http://localhost:3000/tasks', {
       method: 'POST',
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(newTask)
+      body: JSON.stringify(newTask),
     });
 
     const data = await response.json();
-    console.log(data);
     tasks.push(data);
 
     return dispatch({
@@ -39,8 +36,8 @@ export function clearTasks(tasks) {
 
   return {
     type: types.CLEAR_TASKS,
-    tasks: newTasks
-  }
+    tasks: newTasks,
+  };
 }
 
 export function getTasks(boardId) {
@@ -50,30 +47,43 @@ export function getTasks(boardId) {
 
     const response = await fetch(`http://localhost:3000/tasks/id?id=${boardId}`);
     const data = await response.json();
-    console.log(data);
     data.forEach(task => tasks.push(task));
 
     return dispatch({
       type: types.GET_TASKS,
-      tasks
+      tasks,
     });
-  }
+  };
 }
 
 /// new stuff
-export const updateTask = (task, updates) => {
-  console.log('update task')
+export function updateTask(task, updates) {
   return async function (dispatch, getState) {
     const updatedTask = {
       ...task,
       ...updates,
     };
+
+    console.log('updatedTask', updatedTask);
+
+    const response = await fetch(`http://localhost:3000/updatetasks`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedTask),
+    });
+    const data = await response.json();
+
+    console.log('returnedtask', data);
+
     const tasks = getState()
       .tasks.filter(x => x._id !== task._id)
-      .concat(updatedTask);
+      .concat(data);
     return dispatch({
       type: types.UPDATE_TASK,
       tasks,
     });
   };
-};
+}

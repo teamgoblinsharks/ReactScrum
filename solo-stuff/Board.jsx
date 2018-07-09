@@ -1,20 +1,26 @@
 import React from 'react';
 import Row from './Row.jsx';
 import * as taskActions from '../src/actions/tasks.js';
+import * as storyActions from '../src/actions/stories.js';
+
 import { connect } from 'react-redux';
-import tasksReducer from '../src/reducers/tasksReducer';
+// import tasksReducer from '../src/reducers/tasksReducer';
 
 const mapDispatchToProps = dispatch => {
   return {
     addTask: (name, boardId) => dispatch(taskActions.addTask(name, boardId)),
     getTasks: (boardId) => dispatch(taskActions.getTasks(boardId)),
-    clearTasks: (tasks) => dispatch(taskActions.clearTasks(tasks))
+    clearTasks: (tasks) => dispatch(taskActions.clearTasks(tasks)),
+    addStory: (name, boardId) => dispatch(storyActions.addStory(name, boardId)),
+    getStories: (boardId) => dispatch(storyActions.getStories(boardId)),
+    clearStories: (stories) => dispatch(storyActions.clearStories(stories))
   };
 };
 
 const mapStateToProps = store => {
   return {
     tasks: store.tasks,
+    stories: store.stories
   };
 };
 
@@ -23,22 +29,29 @@ class Board extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.handleTaskChange = this.handleTaskChange.bind(this);
+    this.handleStoryChange = this.handleStoryChange.bind(this);
+
 
     this.state = {
       // order: ['todo', 'inProgress', 'testing', 'done'],
       taskValue: '',
-      storyValue: ''
+      storyValue: '',
       // stories: [{ name: 'user will something' }],
       // todo: [],
-      // inProgress: [{ name: 'im in progress', status: 'inProgress' }],
-      // testing: [{ name: 'test that button', status: 'testing' }],
-      // done: [{ name: 'woooooo!', status: 'done' }],
+      inProgress: [{ name: 'im in progress', status: 'inProgress' }],
+      testing: [{ name: 'test that button', status: 'testing' }],
+      done: [{ name: 'woooooo!', status: 'done' }],
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
+    this.props.clearStories(this.props.stories);
     this.props.clearTasks(this.props.tasks);
+  }
+
+  componentDidMount() {
+    this.props.getStories(this.props.match.params.id);
     this.props.getTasks(this.props.match.params.id);
   }
 
@@ -72,7 +85,6 @@ class Board extends React.Component {
 
   handleStoryChange(e) {
     const { value } = e.target;
-
     this.setState({ storyValue: value });
   }
 
@@ -99,14 +111,14 @@ class Board extends React.Component {
               onChange={this.handleStoryChange}
               value={this.state.storyValue}
             />
-            <button onClick={() => this.props.addTask(this.state.storyValue, this.props.match.params.id)}>Add New Task</button>
+            <button onClick={() => this.props.addStory(this.state.storyValue, this.props.match.params.id)}>Add New Story</button>
           </form>
           <div className="board-rows">
-            {/* <Row columnHeader="stories" tasks={this.state.stories} /> */}
+            <Row columnHeader="stories" tasks={this.props.stories} boardId={this.props.match.params.id} />
             <Row columnHeader="todos" tasks={this.props.tasks} boardId={this.props.match.params.id} />
-            {/* <Row columnHeader="inProgress" tasks={this.state.inProgress} /> */}
-            {/* <Row columnHeader="testing" tasks={this.state.testing} /> */}
-            {/* <Row columnHeader="done" tasks={this.state.done} /> */}
+            <Row columnHeader="inProgress" tasks={this.state.inProgress} />
+            <Row columnHeader="testing" tasks={this.state.testing} />
+            <Row columnHeader="done" tasks={this.state.done} />
           </div>
         </div>
       </div>

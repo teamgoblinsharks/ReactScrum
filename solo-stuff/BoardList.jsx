@@ -1,7 +1,6 @@
 import React from 'react';
 import BoardIcon from './BoardIcon.jsx';
 
-
 class BoardList extends React.Component {
   constructor(props) {
     super(props);

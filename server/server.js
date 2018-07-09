@@ -39,6 +39,12 @@ const github = {
   },
 };
 
+app.get('/git', (req, res) => {
+  console.log('here');
+
+  res.send('heyo');
+});
+
 app.use(express.static(publicPath));
 app.post('/signup', (req, res) => {
   SimpleUser.find({ name: req.body.username }, (err, resMongo) => {

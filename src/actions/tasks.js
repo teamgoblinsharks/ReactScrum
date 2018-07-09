@@ -59,3 +59,20 @@ export function getTasks(boardId) {
     });
   }
 }
+
+/// new stuff
+export const updateTask = (task, updates) => {
+  return async function(dispatch, getState) {
+    const updatedTask = {
+      ...task,
+      ...updates,
+    };
+    const tasks = getState()
+      .tasks.filter(x => x._id !== task._id)
+      .concat(updatedTask);
+    return dispatch({
+      type: types.UPDATE_TASK,
+      tasks,
+    });
+  };
+};

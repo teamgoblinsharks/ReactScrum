@@ -20,6 +20,7 @@ class Body extends Component {
 
     const tasks = filteredTasks.map(task => (
       <Task name={task.name} key={Math.random()} columnHeader={this.props.columnHeader} />
+
     ));
     return (
       <div>

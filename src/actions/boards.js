@@ -22,7 +22,7 @@ export function addBoard(name, userId) {
     const data = await response.json();
 
     boards.push(data);
-
+    
     return dispatch({
       type: types.ADD_BOARD,
       boards,

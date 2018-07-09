@@ -18,6 +18,9 @@ export default (state = [], action) => {
 
       return tasks
 
+    case action.UPDATE_TASK: 
+      return action.tasks;
+
     default:
       return state;
   }

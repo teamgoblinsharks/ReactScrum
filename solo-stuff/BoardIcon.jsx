@@ -7,7 +7,7 @@ export default props => {
       style={{
         border: '1px solid black',
       }}
-      onClick={() => props.history.push(`/test/${props.id}/${props.name}`)}
+      onClick={() => props.history.push(`/test/${props.boardId}/${props.name}`)}
     >
       <p>BoardIcon</p>
       <p>{props.name}</p>

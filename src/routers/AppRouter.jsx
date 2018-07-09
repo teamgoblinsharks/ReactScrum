@@ -8,6 +8,8 @@ import createHistory from 'history/createBrowserHistory';
 import LoginPage from '../../solo-stuff/LoginPage.jsx';
 import SignupPage from '../../solo-stuff/SignupPage.jsx';
 import DashboardPage from '../../solo-stuff/DashboardPage.jsx';
+import NotFoundPage from '../components/NotFoundPage.jsx';
+
 import Board from '../../solo-stuff/Board.jsx';
 
 

@@ -24,8 +24,6 @@ const mapStateToProps = store => {
   };
 };
 
-import { addStory } from '../src/actions/stories.js';
-import { addTask } from '../src/actions/tasks.js';
 class Board extends React.Component {
   constructor(props) {
     super(props);
@@ -90,7 +88,7 @@ class Board extends React.Component {
   }
 
   render() {
-
+    console.log(this.props);
     return (
       <div>
         <h1>Board</h1>
@@ -126,10 +124,6 @@ class Board extends React.Component {
     );
   }
 }
-const mapStateToProps = ({ tasks, stories }, ownProps) => ({
-  tasks: tasks.slice().filter(task => String(task.boardID) === ownProps.match.params.boardID),
-  stories: stories.slice().filter(task => String(task.boardID) === ownProps.match.params.boardID),
-});
 
 export default connect(
   mapStateToProps,

@@ -13,6 +13,11 @@ export default (state = [], action) => {
 
       return tasks;
 
+    case types.CLEAR_TASKS:
+      tasks = action.tasks;
+
+      return tasks
+
     default:
       return state;
   }

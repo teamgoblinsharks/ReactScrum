@@ -2,11 +2,13 @@ import React from 'react';
 import Row from './Row.jsx';
 import * as taskActions from '../src/actions/tasks.js';
 import { connect } from 'react-redux';
+import tasksReducer from '../src/reducers/tasksReducer';
 
 const mapDispatchToProps = dispatch => {
   return {
     addTask: (name, boardId) => dispatch(taskActions.addTask(name, boardId)),
-    getTasks: (boardId) => dispatch(taskActions.getTasks(boardId))
+    getTasks: (boardId) => dispatch(taskActions.getTasks(boardId)),
+    clearTasks: (tasks) => dispatch(taskActions.clearTasks(tasks))
   };
 };
 
@@ -25,7 +27,8 @@ class Board extends React.Component {
 
     this.state = {
       // order: ['todo', 'inProgress', 'testing', 'done'],
-      value: '',
+      taskValue: '',
+      storyValue: ''
       // stories: [{ name: 'user will something' }],
       // todo: [],
       // inProgress: [{ name: 'im in progress', status: 'inProgress' }],
@@ -35,9 +38,8 @@ class Board extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.tasks.length === 0) {
-      this.props.getTasks(this.props.match.params.id);
-    }
+    this.props.clearTasks(this.props.tasks);
+    this.props.getTasks(this.props.match.params.id);
   }
 
   handleSubmit(e) {
@@ -63,10 +65,17 @@ class Board extends React.Component {
     // this.setState({ status: fromColumn, toColumnName: toColumn });
   }
 
-  handleChange(e) {
+  handleTaskChange(e) {
     const { value } = e.target;
-    this.setState({ value });
+    this.setState({ taskValue: value });
   }
+
+  handleStoryChange(e) {
+    const { value } = e.target;
+
+    this.setState({ storyValue: value });
+  }
+
   render() {
 
     return (
@@ -78,14 +87,23 @@ class Board extends React.Component {
             <input
               type="text"
               placeholder="project name"
-              onChange={this.handleChange}
-              value={this.state.value}
+              onChange={this.handleTaskChange}
+              value={this.state.taskValue}
             />
-            <button onClick={() => this.props.addTask(this.state.value, this.props.match.params.id)}>Add New Task</button>
+            <button onClick={() => this.props.addTask(this.state.taskValue, this.props.match.params.id)}>Add New Task</button>
+          </form>
+          <form onSubmit={this.handleSubmit}>
+            <input
+              type="text"
+              placeholder="project name"
+              onChange={this.handleStoryChange}
+              value={this.state.storyValue}
+            />
+            <button onClick={() => this.props.addTask(this.state.storyValue, this.props.match.params.id)}>Add New Task</button>
           </form>
           <div className="board-rows">
             {/* <Row columnHeader="stories" tasks={this.state.stories} /> */}
-            <Row columnHeader="todos" tasks={this.props.tasks} boardId={this.props.match.params.id}/>
+            <Row columnHeader="todos" tasks={this.props.tasks} boardId={this.props.match.params.id} />
             {/* <Row columnHeader="inProgress" tasks={this.state.inProgress} /> */}
             {/* <Row columnHeader="testing" tasks={this.state.testing} /> */}
             {/* <Row columnHeader="done" tasks={this.state.done} /> */}

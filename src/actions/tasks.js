@@ -34,7 +34,13 @@ export function addTask(name, boardId) {
 }
 
 export function clearTasks(tasks) {
-  
+  const newTasks = tasks.slice();
+  newTasks.splice(0);
+
+  return {
+    type: types.CLEAR_TASKS,
+    tasks: newTasks
+  }
 }
 
 export function getTasks(boardId) {

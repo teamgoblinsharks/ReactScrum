@@ -4,23 +4,24 @@ import * as taskActions from '../src/actions/tasks.js';
 import * as storyActions from '../src/actions/stories.js';
 
 import { connect } from 'react-redux';
+import { IS_LOGGED_IN } from '../src/constants/actionTypes';
 // import tasksReducer from '../src/reducers/tasksReducer';
 
 const mapDispatchToProps = dispatch => {
   return {
     addTask: (name, boardId) => dispatch(taskActions.addTask(name, boardId)),
-    getTasks: (boardId) => dispatch(taskActions.getTasks(boardId)),
-    clearTasks: (tasks) => dispatch(taskActions.clearTasks(tasks)),
+    getTasks: boardId => dispatch(taskActions.getTasks(boardId)),
+    clearTasks: tasks => dispatch(taskActions.clearTasks(tasks)),
     addStory: (name, boardId) => dispatch(storyActions.addStory(name, boardId)),
-    getStories: (boardId) => dispatch(storyActions.getStories(boardId)),
-    clearStories: (stories) => dispatch(storyActions.clearStories(stories))
+    getStories: boardId => dispatch(storyActions.getStories(boardId)),
+    clearStories: stories => dispatch(storyActions.clearStories(stories)),
   };
 };
 
-const mapStateToProps = store => {
+const mapStateToProps = (store, ownProps) => {
   return {
     tasks: store.tasks,
-    stories: store.stories
+    stories: store.stories,
   };
 };
 
@@ -30,7 +31,6 @@ class Board extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleTaskChange = this.handleTaskChange.bind(this);
     this.handleStoryChange = this.handleStoryChange.bind(this);
-
 
     this.state = {
       // order: ['todo', 'inProgress', 'testing', 'done'],
@@ -48,35 +48,39 @@ class Board extends React.Component {
     this.props.clearStories(this.props.stories);
     this.props.clearTasks(this.props.tasks);
   }
-
-  componentDidMount() {
-    this.props.getStories(this.props.match.params.id);
-    this.props.getTasks(this.props.match.params.id);
+  componentWillReceiveProps(nextProps) {
+    const { stories, tasks } = nextProps;
+    const [todo, inProgress, testing, done] = tasks.reduce(
+      (acc, x) => {
+        if (x.status === 'todo') acc[0].push(x);
+        if (x.status === 'inProgress') acc[1].push(x);
+        if (x.status === 'testing') acc[2].push(x);
+        if (x.status === 'done') acc[3].push(x);
+        return acc;
+      },
+      [[], [], [], []]
+    );
+    this.setState({ stories, todo, inProgress, testing, done });
   }
-
+  async componentDidMount() {
+    await this.props.getStories(this.props.match.params.id);
+    await this.props.getTasks(this.props.match.params.id);
+    const { stories } = this.props;
+    const [todo, inProgress, testing, done] = this.props.tasks.reduce(
+      (acc, x) => {
+        if (x.status === 'todo') acc[0].push(x);
+        if (x.status === 'inProgress') acc[1].push(x);
+        if (x.status === 'testing') acc[2].push(x);
+        if (x.status === 'done') acc[3].push(x);
+        return acc;
+      },
+      [[], [], [], []]
+    );
+    this.setState({ stories, todo, inProgress, testing, done });
+  }
   handleSubmit(e) {
     e.preventDefault();
-    // if (this.state.value.trim()) {
-    //   const todo = this.state.todo
-    //     .slice()
-    //     .concat({ name: this.state.value.trim(), status: 'todo' });
-    //   this.setState({ value: '', todo });
-    // }
   }
-
-  moveColumn(name, status) {
-    console.log('fired', name, status);
-    console.log(this.state);
-
-    // const fromColumn = this.state.filter(task => task.name !== name);
-    // console.log('​Board -> moveColumn -> fromColumn', fromColumn);
-    // const toColumnName = this.state.order[this.state.order.findIndex(status) + 1];
-    // console.log('​Board -> moveColumn -> toColumnName', toColumnName);
-    // const toColumn = this.state[toColumnName].concat({ name: name, status: toColumnName });
-    // console.log('​Board -> moveColumn -> toColumn', toColumn);
-    // this.setState({ status: fromColumn, toColumnName: toColumn });
-  }
-
   handleTaskChange(e) {
     const { value } = e.target;
     this.setState({ taskValue: value });
@@ -88,9 +92,8 @@ class Board extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     return (
-      <div>
+      <div className="board">
         <h1>Board</h1>
         <div>
           <h1>Add new Task</h1>
@@ -101,7 +104,11 @@ class Board extends React.Component {
               onChange={this.handleTaskChange}
               value={this.state.taskValue}
             />
-            <button onClick={() => this.props.addTask(this.state.taskValue, this.props.match.params.id)}>Add New Task</button>
+            <button
+              onClick={() => this.props.addTask(this.state.taskValue, this.props.match.params.id)}
+            >
+              Add New Task
+            </button>
           </form>
           <form onSubmit={this.handleSubmit}>
             <input
@@ -110,11 +117,23 @@ class Board extends React.Component {
               onChange={this.handleStoryChange}
               value={this.state.storyValue}
             />
-            <button onClick={() => this.props.addStory(this.state.storyValue, this.props.match.params.id)}>Add New Story</button>
+            <button
+              onClick={() => this.props.addStory(this.state.storyValue, this.props.match.params.id)}
+            >
+              Add New Story
+            </button>
           </form>
           <div className="board-rows">
-            <Row columnHeader="stories" tasks={this.props.stories} boardId={this.props.match.params.id} />
-            <Row columnHeader="todos" tasks={this.props.tasks} boardId={this.props.match.params.id} />
+            <Row
+              columnHeader="stories"
+              tasks={this.props.stories}
+              boardId={this.props.match.params.id}
+            />
+            <Row
+              columnHeader="todos"
+              tasks={this.state.todo}
+              boardId={this.props.match.params.id}
+            />
             <Row columnHeader="inProgress" tasks={this.state.inProgress} />
             <Row columnHeader="testing" tasks={this.state.testing} />
             <Row columnHeader="done" tasks={this.state.done} />
@@ -129,4 +148,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Board);
-

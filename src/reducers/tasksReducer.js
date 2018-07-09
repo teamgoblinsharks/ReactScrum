@@ -16,9 +16,9 @@ export default (state = [], action) => {
     case types.CLEAR_TASKS:
       tasks = action.tasks;
 
-      return tasks
+      return tasks;
 
-    case action.UPDATE_TASK: 
+    case types.UPDATE_TASK:
       return action.tasks;
 
     default:

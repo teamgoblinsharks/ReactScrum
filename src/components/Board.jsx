@@ -43,10 +43,12 @@ class Board extends React.Component {
   }
 
   componentWillMount() {
+    // Clear The current tasks from state when you load a new board or else you will have duplicates of all tasks and stories
     this.props.clearStories(this.props.stories);
     this.props.clearTasks(this.props.tasks);
   }
   componentWillReceiveProps(nextProps) {
+    // Does the same as Component Did Mount, but in order to modify the arrays after state is changedthis needed to be added
     const { stories, tasks } = nextProps;
     const [todo, inProgress, testing, done] = tasks.reduce(
       (acc, x) => {
@@ -61,8 +63,10 @@ class Board extends React.Component {
     this.setState({ stories, todo, inProgress, testing, done });
   }
   async componentDidMount() {
+    // load in all stories and tasks from database that relate to the current board
     await this.props.getStories(this.props.match.params.id);
     await this.props.getTasks(this.props.match.params.id);
+    // Split tasks into arrays in statse representing the different columns
     const { stories } = this.props;
     const [todo, inProgress, testing, done] = this.props.tasks.reduce(
       (acc, x) => {
@@ -80,11 +84,13 @@ class Board extends React.Component {
     e.preventDefault();
   }
   handleTaskChange(e) {
+    // Keep track of the value in state for the task input
     const { value } = e.target;
     this.setState({ taskValue: value });
   }
 
   handleStoryChange(e) {
+    // Keep track of the value in state for the story input
     const { value } = e.target;
     this.setState({ storyValue: value });
   }

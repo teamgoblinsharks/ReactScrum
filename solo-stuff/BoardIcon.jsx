@@ -19,9 +19,8 @@ const BoardIcon = props => {
       onClick={() => {
         if (!clickedButton) props.history.push(`/test/${props.boardId}/${props.name}`);
       }}
-    > 
+    >
       <div>
-      <p>
         <h2>Project Names</h2>
         <button
           onClick={() => {
@@ -31,8 +30,7 @@ const BoardIcon = props => {
         >
           X
         </button>
-      </p>
-      <p>{props.name}</p>
+        <p>{props.name}</p>
       </div>
     </div>
   );

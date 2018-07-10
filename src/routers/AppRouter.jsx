@@ -20,6 +20,7 @@ export default class AppRouter extends Component {
     return (
       <Router history={history}>
         <div>
+          
           <Switch>
             <Route exact path="/" component={LoginPage} />
             <Route exact path="/signup" component={SignupPage} />

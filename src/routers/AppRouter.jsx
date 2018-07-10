@@ -5,12 +5,12 @@ import 'babel-polyfill';
 import createHistory from 'history/createBrowserHistory';
 
 // import LoginPage from '../components/LoginPage.jsx';
-import LoginPage from '../../solo-stuff/LoginPage.jsx';
-import SignupPage from '../../solo-stuff/SignupPage.jsx';
-import DashboardPage from '../../solo-stuff/DashboardPage.jsx';
+import LoginPage from '../components/LoginPage.jsx';
+import SignupPage from '../components/SignupPage.jsx';
+import DashboardPage from '../components/DashboardPage.jsx';
 import NotFoundPage from '../components/NotFoundPage.jsx';
 
-import Board from '../../solo-stuff/Board.jsx';
+import Board from '../components/Board.jsx';
 
 const history = createHistory();
 export default class AppRouter extends Component {

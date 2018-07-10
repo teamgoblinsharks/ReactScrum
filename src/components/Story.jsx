@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { updateStory, deleteStory } from '../src/actions/stories.js';
+import { updateStory, deleteStory } from '../actions/stories.js';
 
 const Task = props => {
   const order = ['todo', 'inProgress', 'testing', 'done'];

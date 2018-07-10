@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 
-import { isLoggedIn } from '../src/actions/users.js';
+import { isLoggedIn } from '../actions/users.js';
 class Form extends React.Component {
   constructor(props) {
     super(props);

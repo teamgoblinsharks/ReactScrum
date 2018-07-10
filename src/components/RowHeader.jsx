@@ -1,14 +1,11 @@
-import React, { Component } from 'react';
-import Body from './Body.jsx';
-
+import React from 'react';
 
 const RowHeader = props => {
-    return (
-      <div>
-        <div>{props.title}</div>
-        <Body />
-      </div>
-    )
-}
+  return (
+    <div>
+      <h1>{props.columnHeader}</h1>
+    </div>
+  );
+};
 
 export default RowHeader;

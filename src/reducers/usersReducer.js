@@ -6,12 +6,9 @@ export default (state = [], action) => {
     case types.GET_USERS:
       users = action.users;
       return users;
-    case types.IS_LOGGED_IN:
+    case types.IS_LOGGED_OUT:
       users = action.users;
-
-      return {
-        users,
-      };
+      return users;
     default:
       return state;
   }

@@ -9,16 +9,19 @@ const Task = props => {
     <div
       style={{
         border: '2.5px solid black',
-        padding: '4px 4px', 
+        padding: '4px 4px',
         backgroundColor: props.task.done ? 'green' : 'red',
         marginTop: '2px',
         marginBottom: '2px',
       }}
     >
-        <button className = 'delete' onClick={() => props.deleteTask(props.task._id)}>X</button>
-      <p>
-        {props.name} 
-      </p>
+      <button
+        className="delete button_clear--small"
+        onClick={() => props.deleteTask(props.task._id)}
+      >
+        X
+      </button>
+      <p>{props.name}</p>
       <span
         onClick={() => {
           let { done } = props.task;
@@ -26,7 +29,7 @@ const Task = props => {
           props.updateStory(props.task, { done: !done });
         }}
       >
-      Status
+        Status
       </span>
     </div>
   );

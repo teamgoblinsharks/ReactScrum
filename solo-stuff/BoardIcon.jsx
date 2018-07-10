@@ -9,30 +9,31 @@ const BoardIcon = props => {
   let clickedButton = false;
   return (
     <div
-      className='board-icon'
+      className="board-icon"
       style={{
         border: '2.5px solid black',
         height: '20%',
         width: '50%',
-        padding: '4px 4px'
+        padding: '4px 4px',
       }}
       onClick={() => {
         if (!clickedButton) props.history.push(`/test/${props.boardId}/${props.name}`);
       }}
-    > 
+    >
       <div>
-      <p>
-        <h2>Project Names</h2>
-        <button
-          onClick={() => {
-            clickedButton = true;
-            props.deleteBoard(props.boardId);
-          }}
-        >
-          X
-        </button>
-      </p>
-      <p>{props.name}</p>
+        <p>
+          <h2>Project Names</h2>
+          <button
+            className="button_clear--small"
+            onClick={() => {
+              clickedButton = true;
+              props.deleteBoard(props.boardId);
+            }}
+          >
+            X
+          </button>
+        </p>
+        <p>{props.name}</p>
       </div>
     </div>
   );

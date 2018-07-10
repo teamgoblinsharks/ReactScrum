@@ -11,8 +11,6 @@ import DashboardPage from '../../solo-stuff/DashboardPage.jsx';
 import NotFoundPage from '../components/NotFoundPage.jsx';
 
 import Board from '../../solo-stuff/Board.jsx';
-import Header from '../components/Header.jsx';
-
 
 const history = createHistory();
 export default class AppRouter extends Component {
@@ -20,7 +18,6 @@ export default class AppRouter extends Component {
     return (
       <Router history={history}>
         <div>
-          <Header />
           <Switch>
             <Route exact path="/" component={LoginPage} />
             <Route exact path="/signup" component={SignupPage} />

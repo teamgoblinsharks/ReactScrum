@@ -12,6 +12,7 @@ const UserSchema = new mongoose.Schema({
 const SimpleUserSchema = new mongoose.Schema({
   name: { type: String, required: true },
   password: { type: String, required: true },
+  isLoggedIn: Boolean,
 });
 const SimpleUser = mongoose.model('SimpleUser', SimpleUserSchema);
 const User = mongoose.model('User', UserSchema);
@@ -41,26 +42,6 @@ const fetchMongoData = function(request, response, next) {
       };
       next();
     });
-
-  // if (request.path === '/add_user') {
-  //   if (request.query.name && request.query.name.trim()) {
-  //     const user = { name: request.query.name.trim() };
-  //     User.create(user, (err, res) => {
-  //       if (err) {
-  //         response.locals.error = { message: err, statusCode: 400 };
-  //       } else {
-  //         response.locals.data = res;
-  //       }
-  //       next();
-  //     });
-  //   }
-  // } else {
-  //   response.locals.error = {
-  //     error: 'Error 400. Unable to add user without name parameter. request not processed',
-  //     statusCode: 400,
-  //   };
-  //   next();
-  // }
 };
 
 module.exports = { SimpleUser, User, fetchMongoData };

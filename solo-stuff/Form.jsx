@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
 
+import { isLoggedIn } from '../src/actions/users.js';
 class Form extends React.Component {
   constructor(props) {
     super(props);
@@ -14,10 +16,11 @@ class Form extends React.Component {
   }
   onSubmitHandler(e) {
     e.preventDefault();
-
+    const url = `http://localhost:3000${this.props.formRoute}`;
+    console.log(url);
     if (this.state.password.trim() && this.state.username.trim()) {
       axios
-        .post(`http://localhost:3000${this.props.formRoute}`, {
+        .post(url, {
           username: this.state.username.trim(),
           password: this.state.password.trim(),
         })
@@ -25,10 +28,22 @@ class Form extends React.Component {
           if (res.data.error) {
             this.setState({ formError: res.data.error });
           } else {
+            this.setState({ username: '', password: '' });
+            this.props.isLoggedIn(res.data._id);
             this.props.history.push(`/test/${res.data._id}`);
           }
         });
-      this.setState({ username: '', password: '' });
+    } else {
+      let errorMessage;
+
+      if (!this.state.username.trim() && !this.state.password.trim()) {
+        errorMessage = 'Username and password required';
+      } else if (!this.state.username) {
+        errorMessage = 'Username required';
+      } else if (!this.state.password.trim()) {
+        errorMessage = 'Password required';
+      }
+      this.setState({ formError: errorMessage });
     }
   }
   onValueChange(e) {
@@ -37,6 +52,7 @@ class Form extends React.Component {
       ? this.setState({ username: e.target.value })
       : this.setState({ password: e.target.value });
     if (this.state.username.trim() && this.state.password.trim()) {
+      this.setState({ formError: '' });
     }
   }
   render() {
@@ -53,4 +69,15 @@ class Form extends React.Component {
   }
 }
 
-export default Form;
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    isLoggedIn: id => {
+      dispatch(isLoggedIn(id));
+    },
+  };
+};
+
+export default connect(
+  undefined,
+  mapDispatchToProps
+)(Form);

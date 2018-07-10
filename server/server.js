@@ -22,19 +22,21 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/getusers', fetchMongoData, (req, res) => {
-  res.json(res.locals.data);
+  SimpleUser.find({}, (err, resMongo) => {
+    res.json(resMongo);
+  });
 });
 
 const github = {
   clientID: '8f7d91a63f56cb8593fd',
   clientSecret: '77d2df9309e5220194b998253edf4183a983ab72',
   redirectURI: 'http://localhost:3000/git',
-  postCodeURL: function () {
+  postCodeURL: function() {
     return `https://github.com/login/oauth/access_token?client_id=${this.clientID}&client_secret=${
       this.clientSecret
-      }&code=`;
+    }&code=`;
   },
-  authGetUrl: function () {
+  authGetUrl: function() {
     return `https://api.github.com/user?`;
   },
 };
@@ -52,7 +54,7 @@ app.post('/signup', (req, res) => {
       res.send({ error: 'user exists' });
     } else {
       SimpleUser.create(
-        { name: req.body.username, password: req.body.password },
+        { name: req.body.username, password: req.body.password, isLoggedIn: true },
         (err, resMongo) => {
           res.send(resMongo);
         }
@@ -61,36 +63,26 @@ app.post('/signup', (req, res) => {
   });
 });
 
-app.post('/login', (req, res) => {
-  SimpleUser.find({ name: req.body.username }, (err, resMongo) => {
-    if (resMongo.length) {
-      res.send(resMongo[0]);
-    } else {
-      res.send({ error: 'username or password incorrect' });
-    }
+app.post('/logout', (req, res) => {
+  SimpleUser.findOneAndUpdate({ _id: req.body._id }, { isLoggedIn: false }, (err, resMongo) => {
+    res.send('logged-out');
   });
 });
 
-app.get('/test', (req, res) => {
-  User.find({ name: 'Mia Huynh' }, (err, mongoRes) => {
-    if (mongoRes.length) {
-      console.log('hi');
-
-      res.send(mongoRes[0]);
+app.post('/login', (req, res) => {
+  SimpleUser.find({ name: req.body.username, password: req.body.password }, (err, resMongo) => {
+    if (resMongo.length) {
+      const userData = resMongo[0];
+      SimpleUser.update(
+        { name: req.body.username, password: req.body.password },
+        { isLoggedIn: true },
+        (err, resMongo) => {
+          console.log(resMongo);
+          res.send(userData);
+        }
+      );
     } else {
-      const newUser = {
-        name: 'jon',
-        isLoggedIn: true,
-        boards: JSON.stringify({}),
-        oauthInfo: JSON.stringify({
-          github: 'userData',
-        }),
-      };
-      User.create(newUser, (err, mongoRes) => {
-        console.log(mongoRes);
-
-        res.json(mongoRes);
-      });
+      res.send({ error: 'username or password incorrect' });
     }
   });
 });

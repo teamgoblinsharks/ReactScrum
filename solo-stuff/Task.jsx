@@ -15,15 +15,17 @@ class Task extends React.Component {
     return (
       <div
         style={{
-          border: '1px solid black',
+          border: '2.5px solid black',
           margin: '2px 2px 2px',
         padding: '4px 4px 4px',
         }}
       >
+        <button className = 'delete' onClick={() => this.props.deleteTask(this.props.task._id)}>X</button>
         <p>
           {this.props.name}{' '}
-          <button onClick={() => this.props.deleteTask(this.props.task._id)}>X</button>
         </p>
+
+        <div className = 'task-status'>
         <span
           onClick={() => {
             const { status } = this.props.task;
@@ -32,22 +34,23 @@ class Task extends React.Component {
             ];
             this.props.updateTask(this.props.task, { status: newStatus });
           }}
-        >
-          move left
+          >
+          Back
         </span>
         <span
           onClick={() => {
             const { status } = this.props.task;
             const newStatus = this.state.order[
               this.state.order.indexOf(status) === this.state.order.length - 1
-                ? this.state.order.length - 1
-                : this.state.order.indexOf(status) + 1
+              ? this.state.order.length - 1
+              : this.state.order.indexOf(status) + 1
             ];
             this.props.updateTask(this.props.task, { status: newStatus });
           }}
-        >
-          move right
+          >
+          Next
         </span>
+        </div>
       </div>
     );
   }

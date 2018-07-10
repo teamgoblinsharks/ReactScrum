@@ -18,6 +18,8 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+
+// USER ROUTES
 app.get('/getusers', fetchMongoData, (req, res) => {
   SimpleUser.find({}, (err, resMongo) => {
     res.json(resMongo);

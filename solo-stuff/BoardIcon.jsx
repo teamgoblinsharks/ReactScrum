@@ -11,7 +11,7 @@ const BoardIcon = props => {
     <div
       className='board-icon'
       style={{
-        border: '1px solid black',
+        border: '2.5px solid black',
         height: '20%',
         width: '50%',
         padding: '4px 4px'

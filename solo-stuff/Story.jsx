@@ -8,12 +8,16 @@ const Task = props => {
   return (
     <div
       style={{
-        border: '1px solid black',
+        border: '2.5px solid black',
+        padding: '4px 4px', 
         backgroundColor: props.task.done ? 'green' : 'red',
+        marginTop: '2px',
+        marginBottom: '2px',
       }}
     >
+        <button className = 'delete' onClick={() => props.deleteTask(props.task._id)}>X</button>
       <p>
-        {props.name} <button onClick={() => props.deleteTask(props.task._id)}>X</button>
+        {props.name} 
       </p>
       <span
         onClick={() => {
@@ -22,7 +26,7 @@ const Task = props => {
           props.updateStory(props.task, { done: !done });
         }}
       >
-        Toggle
+      Status
       </span>
     </div>
   );

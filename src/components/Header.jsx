@@ -10,8 +10,18 @@ class Header extends React.Component{
   }
   render(){
     return(
-      <div>
-        Header
+      <div className = 'header'>
+        <div>
+        Scrum Didilyumptious
+        </div>
+        <div className = 'header-info'>
+          <div>
+            User Name  
+          </div>
+          <div>
+            Logout
+          </div>
+        </div>
       </div>
     )
   }

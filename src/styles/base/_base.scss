@@ -4,43 +4,50 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
+  
   &-rows {
     display: flex;
+    justify-content: center;
+    text-align: center;
+    border: 4px solid black;
+    width: 950px; 
+    
+  }
+  &-icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 20px solid black; 
+    margin: 0; 
+  }
+  &-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  &-forms {
+    display: flex;
+    margin-bottom: 20px;
+    margin-left: 10px; 
   }
 }
 
 .row {
+  width: 15%; 
   margin-right: 20px;
+  word-wrap: break-word; 
 }
 
 .login-page {
   text-align: center;
 }
 
-.board-icon {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
 
 .dashboard-page {
   text-align: center;
   justify-content: center;
-}
-
-.board-list {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-
-.board-rows {
-  justify-content: center;
-  text-align: center;
 }
 
 body {
@@ -50,4 +57,30 @@ body {
 .movers {
   margin-right: 4px;
   padding-right: 4px;
+}
+
+.header{
+  display: flex;
+  justify-content: space-between;
+
+  &-info {
+    display: flex;
+    justify-content: center; 
+  }
+}
+
+.task-status{
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px; 
+  margin-left: 5px; 
+
+}
+
+.delete{
+  float: right; 
+  padding-top: 1px;
+  padding-block-end: 1px;
+  padding-left: 3px;
+  padding-right: 3px;
 }

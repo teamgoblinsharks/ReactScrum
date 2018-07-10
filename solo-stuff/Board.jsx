@@ -95,32 +95,36 @@ class Board extends React.Component {
         <h1 style={{textAlign: 'center'}}>Welcome To Your ScrumBoard</h1>
         <div>
           <h1>Build Your Board</h1>
+          <div className = 'board-forms'>
           <form onSubmit={this.handleSubmit}>
             <input
               type="text"
-              placeholder="project name"
+              placeholder="Task Name"
               onChange={this.handleTaskChange}
               value={this.state.taskValue}
-            />
+              />
             <button
               onClick={() => this.props.addTask(this.state.taskValue, this.props.match.params.id)}
-            >
+              >
               Add New Task
             </button>
           </form>
+          <div className = 'board-forms'>
           <form onSubmit={this.handleSubmit}>
             <input
               type="text"
-              placeholder="project name"
+              placeholder="Story Name"
               onChange={this.handleStoryChange}
               value={this.state.storyValue}
-            />
+              />
             <button
               onClick={() => this.props.addStory(this.state.storyValue, this.props.match.params.id)}
-            >
+              >
               Add New Story
             </button>
           </form>
+          </div>
+          </div>
             <div className="board-rows">
               <Row
                 isStory={true}

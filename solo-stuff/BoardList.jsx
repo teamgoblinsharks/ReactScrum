@@ -22,7 +22,7 @@ class BoardList extends React.Component {
         userID={this.props.userID}
         boardId={board._id}
         name={board.name}
-        key={Math.random()}
+        key={board._id}
       />
     ));
 

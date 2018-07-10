@@ -1,30 +1,70 @@
-import React, { Component } from 'react';
-import Draggable from 'react-draggable';
+import React from 'react';
+import { connect } from 'react-redux';
 
+import { updateTask, deleteTask } from '../actions/tasks.js';
 
+class Task extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      order: ['todo', 'inProgress', 'testing', 'done'],
+    };
+  }
 
-
-class Task extends Component {
-  render () { 
+  render() {
     return (
-        <div>
-        <Draggable
-          axis="x"
-          handle=".handle"
-          defaultPosition={{x: 0, y: 0}}
-          position={null}
-          grid={[50, 50]}
-          onStart={this.handleStart}
-          onDrag={this.handleDrag}
-          onStop={this.handleStop}>
-          <div>
-            <div className="handle">Drag from here</div>
-            <div>This readme is really dragging on...</div>
-          </div>
-        </Draggable>
+      <div
+        style={{
+          border: '2.5px solid black',
+          margin: '2px 2px 2px',
+          padding: '4px 4px 4px',
+        }}
+      >
+        <button
+          className="delete button_clear--small"
+          onClick={() => this.props.deleteTask(this.props.task._id)}
+        >
+          X
+        </button>
+        <p>{this.props.name} </p>
+
+        <div className="task-status">
+          <span
+            onClick={() => {
+              const { status } = this.props.task;
+              const newStatus = this.state.order[
+                this.state.order.indexOf(status) === 0 ? 0 : this.state.order.indexOf(status) - 1
+              ];
+              this.props.updateTask(this.props.task, { status: newStatus });
+            }}
+          >
+            Back
+          </span>
+          <span
+            onClick={() => {
+              const { status } = this.props.task;
+              const newStatus = this.state.order[
+                this.state.order.indexOf(status) === this.state.order.length - 1
+                  ? this.state.order.length - 1
+                  : this.state.order.indexOf(status) + 1
+              ];
+              this.props.updateTask(this.props.task, { status: newStatus });
+            }}
+          >
+            Next
+          </span>
         </div>
-    )
+      </div>
+    );
   }
 }
 
-export default Task;
+const mapDispatchToProps = dispatch => ({
+  updateTask: (task, updates) => dispatch(updateTask(task, updates)),
+  deleteTask: taskId => dispatch(deleteTask(taskId)),
+});
+
+export default connect(
+  undefined,
+  mapDispatchToProps
+)(Task);

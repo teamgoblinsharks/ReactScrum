@@ -1,5 +1,5 @@
 import React from 'react';
-import Form from '../solo-stuff/Form.jsx';
+import Form from './Form.jsx';
 
 const SignupPage = props => {
   return (

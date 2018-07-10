@@ -1,69 +1,153 @@
 import React from 'react';
 import Row from './Row.jsx';
 
+import Header from './Header.jsx';
+import * as taskActions from '../actions/tasks.js';
+import * as storyActions from '../actions/stories.js';
+import { connect } from 'react-redux';
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addTask: (name, boardId) => dispatch(taskActions.addTask(name, boardId)),
+    getTasks: boardId => dispatch(taskActions.getTasks(boardId)),
+    clearTasks: tasks => dispatch(taskActions.clearTasks(tasks)),
+    addStory: (name, boardId) => dispatch(storyActions.addStory(name, boardId)),
+    getStories: boardId => dispatch(storyActions.getStories(boardId)),
+    clearStories: stories => dispatch(storyActions.clearStories(stories)),
+  };
+};
+
+const mapStateToProps = (store, ownProps) => {
+  return {
+    tasks: store.tasks,
+    stories: store.stories,
+  };
+};
+
 class Board extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.handleTaskChange = this.handleTaskChange.bind(this);
+    this.handleStoryChange = this.handleStoryChange.bind(this);
 
     this.state = {
-      order: ['todo', 'inProgress', 'testing', 'done'],
-      value: '',
-      stories: [{ name: 'user will something' }],
+      taskValue: '',
+      storyValue: '',
+      stories: [],
       todo: [],
-      inProgress: [{ name: 'im in progress', status: 'inProgress' }],
-      testing: [{ name: 'test that button', status: 'testing' }],
-      done: [{ name: 'woooooo!', status: 'done' }],
+      inProgress: [],
+      testing: [],
+      done: [],
     };
+  }
+
+  componentWillMount() {
+    this.props.clearStories(this.props.stories);
+    this.props.clearTasks(this.props.tasks);
+  }
+  componentWillReceiveProps(nextProps) {
+    const { stories, tasks } = nextProps;
+    const [todo, inProgress, testing, done] = tasks.reduce(
+      (acc, x) => {
+        if (x.status === 'todo') acc[0].push(x);
+        if (x.status === 'inProgress') acc[1].push(x);
+        if (x.status === 'testing') acc[2].push(x);
+        if (x.status === 'done') acc[3].push(x);
+        return acc;
+      },
+      [[], [], [], []]
+    );
+    this.setState({ stories, todo, inProgress, testing, done });
+  }
+  async componentDidMount() {
+    await this.props.getStories(this.props.match.params.id);
+    await this.props.getTasks(this.props.match.params.id);
+    const { stories } = this.props;
+    const [todo, inProgress, testing, done] = this.props.tasks.reduce(
+      (acc, x) => {
+        if (x.status === 'todo') acc[0].push(x);
+        if (x.status === 'inProgress') acc[1].push(x);
+        if (x.status === 'testing') acc[2].push(x);
+        if (x.status === 'done') acc[3].push(x);
+        return acc;
+      },
+      [[], [], [], []]
+    );
+    this.setState({ stories, todo, inProgress, testing, done });
   }
   handleSubmit(e) {
     e.preventDefault();
-    if (this.state.value.trim()) {
-      const todo = this.state.todo
-        .slice()
-        .concat({ name: this.state.value.trim(), status: 'todo' });
-      this.setState({ value: '', todo });
-    }
   }
-  moveColumn(name, status) {
-    console.log('fired', name, status);
-    console.log(this.state);
-
-    // const fromColumn = this.state.filter(task => task.name !== name);
-    // console.log('​Board -> moveColumn -> fromColumn', fromColumn);
-    // const toColumnName = this.state.order[this.state.order.findIndex(status) + 1];
-    // console.log('​Board -> moveColumn -> toColumnName', toColumnName);
-    // const toColumn = this.state[toColumnName].concat({ name: name, status: toColumnName });
-    // console.log('​Board -> moveColumn -> toColumn', toColumn);
-    // this.setState({ status: fromColumn, toColumnName: toColumn });
-  }
-
-  handleChange(e) {
+  handleTaskChange(e) {
     const { value } = e.target;
-    this.setState({ value });
+    this.setState({ taskValue: value });
   }
+
+  handleStoryChange(e) {
+    const { value } = e.target;
+    this.setState({ storyValue: value });
+  }
+
   render() {
     return (
-      <div>
-        <h1>Board</h1>
+      <div className="board">
         <div>
-          <h1>Add new Task</h1>
-          <form onSubmit={this.handleSubmit}>
-            <input
-              type="text"
-              placeholder="project name"
-              onChange={this.handleChange}
-              value={this.state.value}
-            />
-            <button onClick={this.handleSubmit}>Add New Task</button>
-          </form>
+          <Header match={this.props.match} history={this.props.history} />
+
+          <h1 style={{ textAlign: 'center' }}>Welcome To Your ScrumBoard</h1>
           <div>
-            <Row columnHeader="stories" tasks={this.state.stories} />
-            <Row columnHeader="todos" tasks={this.state.todo} />
-            <Row columnHeader="inProgress" tasks={this.state.inProgress} />
-            <Row columnHeader="testing" tasks={this.state.testing} />
-            <Row columnHeader="done" tasks={this.state.done} />
+            <h1>Build Your Board</h1>
+            <div className="board-forms">
+              <form onSubmit={this.handleSubmit}>
+                <input
+                  type="text"
+                  placeholder="Task Name"
+                  onChange={this.handleTaskChange}
+                  value={this.state.taskValue}
+                />
+                <button
+                  onClick={() =>
+                    this.props.addTask(this.state.taskValue, this.props.match.params.id)
+                  }
+                >
+                  Add New Task
+                </button>
+              </form>
+              <div className="board-forms">
+                <form onSubmit={this.handleSubmit}>
+                  <input
+                    type="text"
+                    placeholder="Story Name"
+                    onChange={this.handleStoryChange}
+                    value={this.state.storyValue}
+                  />
+                  <button
+                    onClick={() =>
+                      this.props.addStory(this.state.storyValue, this.props.match.params.id)
+                    }
+                  >
+                    Add New Story
+                  </button>
+                </form>
+              </div>
+            </div>
+            <div className="board-rows">
+              <Row
+                isStory={true}
+                columnHeader="Stories"
+                tasks={this.props.stories}
+                boardId={this.props.match.params.id}
+              />
+              <Row
+                columnHeader="Todos"
+                tasks={this.state.todo}
+                boardId={this.props.match.params.id}
+              />
+              <Row columnHeader="In Progress" tasks={this.state.inProgress} />
+              <Row columnHeader="Testing" tasks={this.state.testing} />
+              <Row columnHeader="Done" tasks={this.state.done} />
+            </div>
           </div>
         </div>
       </div>
@@ -71,4 +155,7 @@ class Board extends React.Component {
   }
 }
 
-export default Board;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Board);

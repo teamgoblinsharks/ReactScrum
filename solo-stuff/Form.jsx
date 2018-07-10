@@ -61,7 +61,9 @@ class Form extends React.Component {
         <form onSubmit={this.onSubmitHandler}>
           <input type="text" placeholder="username" onChange={this.onValueChange} />
           <input type="text" placeholder="password" onChange={this.onValueChange} />
-          <button onClick={this.onSubmitHandler}>submit</button>
+          <button className="button" onClick={this.onSubmitHandler}>
+            submit
+          </button>
         </form>
         {this.state.formError && <p>{this.state.formError}</p>}
       </div>
